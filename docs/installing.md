@@ -1,6 +1,6 @@
 # Installing
 
-1. Check if you have Python installed.
+1. Check if you have Python 3.10 or newer installed.
 
     Run your [terminal application](index.md/#terminal-applications).
 
@@ -9,13 +9,10 @@
         python --version
     
     If Python is installed, this will print a version number.
-    If that version number is at least 3.7, you may skip the next step
-    (though you might wish to upgrade your Python if it's very old).
+    If that version number is at least 3.10, you may skip the next step
+    (though you might wish to upgrade your Python in any case).
 
-    (People who wish to contribute to this package should install Python 3.10 or later,
-    because mkdocs requires that to build documentation).
-
-2. If necessary, install [Python](https://www.python.org/downloads/) 3.7 or later.
+2. If necessary, install [Python](https://www.python.org/downloads/) 3.10 or later, preferably the current release.
 
     The link has installers for common operating systems.
     However, on Windows you may want to try Microsoft's app store.
@@ -52,3 +49,17 @@
         python -m pip install --upgrade dtx_to_wif
 
     You can also specify a specific version; seee pip's documentation for details.
+
+## Developer Info
+
+To install the package in a locally editable form:
+
+* Fork the project and clone that to a local folder.
+
+* Install an editable version of the package. From within the dtx_to_wif folder:
+
+    python -m pip install -e ".[dev]"
+
+* Run unit tests:
+
+    python -m unittest tests/test_*.py
