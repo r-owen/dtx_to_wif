@@ -2,7 +2,7 @@
 
 ## 4.3.1 2025-06-03
 
-Fixed an incompatibility with Python older than 3.12.
+Fix an incompatibility with Python older than 3.12.
 Document 3.10 as the earliest supported version of Python. (3.9 does not work.)
 
 ## 4.3 2025-05-01
