@@ -47,7 +47,12 @@ def read_wpo(f: BinaryIO, filename: str) -> PatternData:
     if file_version > 7:
         warnings.warn("File version > 7; the results may not be correct")
     file_type_int = read_int(f, 1)  # file type: 100=dobby  101=tie-up  102=tie-up II
-    if file_type_int not in FileTypes:
+    # TODO: when we require Python 3.12 or later, simplify this to:
+    #     if file_type_int not in FileTypes:
+    #         ...raise RuntimeError...
+    try:
+        FileTypes(file_type_int)
+    except ValueError:
         file_types_str = ", ".join(str(i) for i in FileTypes)
         raise RuntimeError(f"Unknown {file_type_int=}; must be in {file_types_str}")
     file_type = FileTypes(file_type_int)
