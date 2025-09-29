@@ -70,5 +70,5 @@ def read_pattern_file(filepath: PathLike | str) -> PatternData:
             f"Cannot read {suffix_lower} files: must be one of {Readers.keys()}"
         )
 
-    with open(filepath, "rb" if reader_info.is_binary else "r") as f:
+    with filepath.open("rb" if reader_info.is_binary else "r") as f:
         return reader_info.reader(f, filepath.name)

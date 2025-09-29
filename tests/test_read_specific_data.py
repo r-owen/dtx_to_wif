@@ -119,7 +119,7 @@ class TestReadSpecificData(unittest.TestCase):
         for filename, expected_data in SpecificData.items():
             with self.subTest(filename=filename):
                 wif_path = datadir / "desired_basic_wif" / (filename + ".wif")
-                with open(wif_path, "r") as f:
+                with wif_path.open("r") as f:
                     parsed_wif = read_wif(f)
                 assert vars(parsed_wif) == expected_data
 
@@ -127,7 +127,7 @@ class TestReadSpecificData(unittest.TestCase):
         for filename, expected_data in SpecificData.items():
             with self.subTest(filename=filename):
                 dtx_path = datadir / "basic_dtx" / (filename + ".dtx")
-                with open(dtx_path, "r") as f:
+                with dtx_path.open("r") as f:
                     parsed_dtx = read_dtx(f)
                 assert vars(parsed_dtx) == expected_data
 

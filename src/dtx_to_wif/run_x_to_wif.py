@@ -66,7 +66,7 @@ def run_x_to_wif(suffix: str) -> None:
             print(f"Failed to read {infile}")
             continue
         try:
-            with open(outfile, "w") as outf:
+            with outfile.open("w") as outf:
                 write_wif(outf, pattern)
         except Exception:
             traceback.print_exc()

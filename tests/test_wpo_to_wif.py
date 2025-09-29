@@ -34,26 +34,26 @@ class TestWpoToWif(unittest.TestCase):
             self.check_run_result(result, desired_prefix="Writing")
             actual_paths = [path for path in actual_dir.rglob("*.wpo")]
             assert len(actual_paths) == 9
-            for wpopath in actual_paths:
-                wifpath = wpopath.with_suffix(".wif")
-                assert wifpath.is_file()
-                expected_wif_path = expected_dir / wifpath.name
-                self.assert_files_equal(wifpath, expected_wif_path)
+            for wpo_path in actual_paths:
+                wif_path = wpo_path.with_suffix(".wif")
+                assert wif_path.is_file()
+                expected_wif_path = expected_dir / wif_path.name
+                self.assert_files_equal(wif_path, expected_wif_path)
 
             # Clear the wif files in the basic_wpo dir tree and run again.
             # All wif files should be empty because they are not overwritten.
-            for wpopath in actual_paths:
-                wifpath = wpopath.with_suffix(".wif")
-                with open(wifpath, "w") as f:
+            for wpo_path in actual_paths:
+                wif_path = wpo_path.with_suffix(".wif")
+                with wif_path.open("w") as f:
                     f.truncate()
             result = subprocess.run(
                 [cmdname, actual_dir_str], check=True, capture_output=True
             )
             self.check_run_result(result, desired_prefix="Skipping")
-            for wpopath in actual_paths:
-                wifpath = wpopath.with_suffix(".wif")
-                assert wifpath.is_file()
-                with open(wifpath, "r") as f:
+            for wpo_path in actual_paths:
+                wif_path = wpo_path.with_suffix(".wif")
+                assert wif_path.is_file()
+                with wif_path.open("r") as f:
                     data = f.read()
                     assert data == ""
 
@@ -63,11 +63,11 @@ class TestWpoToWif(unittest.TestCase):
             filepathargs = [cmdname] + actual_paths + ["--overwrite"]
             result = subprocess.run(filepathargs, check=True, capture_output=True)
             self.check_run_result(result, desired_prefix="Overwriting")
-            for wpopath in actual_paths:
-                wifpath = wpopath.with_suffix(".wif")
-                assert wifpath.is_file()
-                expected_wif_path = datadir / EXPECTED_DIR / wifpath.name
-                self.assert_files_equal(wifpath, expected_wif_path)
+            for wpo_path in actual_paths:
+                wif_path = wpo_path.with_suffix(".wif")
+                assert wif_path.is_file()
+                expected_wif_path = datadir / EXPECTED_DIR / wif_path.name
+                self.assert_files_equal(wif_path, expected_wif_path)
 
     def check_run_result(self, result, desired_prefix):
         """Check the result from running the function.
@@ -91,9 +91,9 @@ class TestWpoToWif(unittest.TestCase):
         and check that they have the expected associated values.
         """
         with self.subTest(actual_path=actual_path, expected_path=expected_path):
-            with open(actual_path, "r") as file1:
+            with actual_path.open("r") as file1:
                 actual_data = read_wif(file1)
-            with open(expected_path, "r") as file2:
+            with expected_path.open("r") as file2:
                 expected_data = read_wif(file2)
 
             assert actual_data.name == actual_path.with_suffix(".wpo").name

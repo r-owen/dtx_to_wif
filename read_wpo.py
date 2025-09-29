@@ -8,6 +8,6 @@ if len(sys.argv) < 2:
 
 filepath = pathlib.Path(sys.argv[1])
 print(filepath)
-with open(filepath, "rb") as f:
+with filepath.open("rb") as f:
     data = read_wpo(f, filepath.name)
 print(data)

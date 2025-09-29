@@ -30,25 +30,25 @@ class TestDtxToWif(unittest.TestCase):
             actual_paths = [path for path in actual_dir.rglob("*.dtx")]
             assert len(actual_paths) == 6
             for dtxpath in actual_paths:
-                wifpath = dtxpath.with_suffix(".wif")
-                assert wifpath.is_file()
-                actual_wif_path = desired_basic_wif_dir / wifpath.name
-                self.assert_files_equal(wifpath, actual_wif_path)
+                wif_path = dtxpath.with_suffix(".wif")
+                assert wif_path.is_file()
+                actual_wif_path = desired_basic_wif_dir / wif_path.name
+                self.assert_files_equal(wif_path, actual_wif_path)
 
             # Clear the wif files in the basic_dtx dir tree and run again.
             # All wif files should be empty because they are not overwritten.
             for dtxpath in actual_paths:
-                wifpath = dtxpath.with_suffix(".wif")
-                with open(wifpath, "w") as f:
+                wif_path = dtxpath.with_suffix(".wif")
+                with wif_path.open("w") as f:
                     f.truncate()
             result = subprocess.run(
                 [cmdname, actual_dir_str], check=True, capture_output=True
             )
             self.check_run_result(result, desired_prefix="Skipping")
             for dtxpath in actual_paths:
-                wifpath = dtxpath.with_suffix(".wif")
-                assert wifpath.is_file()
-                with open(wifpath, "r") as f:
+                wif_path = dtxpath.with_suffix(".wif")
+                assert wif_path.is_file()
+                with wif_path.open("r") as f:
                     data = f.read()
                     assert data == ""
 
@@ -59,10 +59,10 @@ class TestDtxToWif(unittest.TestCase):
             result = subprocess.run(filepathargs, check=True, capture_output=True)
             self.check_run_result(result, desired_prefix="Overwriting")
             for dtxpath in actual_paths:
-                wifpath = dtxpath.with_suffix(".wif")
-                assert wifpath.is_file()
-                actual_wif_path = datadir / EXPECTED_SUBDIR / wifpath.name
-                self.assert_files_equal(wifpath, actual_wif_path)
+                wif_path = dtxpath.with_suffix(".wif")
+                assert wif_path.is_file()
+                actual_wif_path = datadir / EXPECTED_SUBDIR / wif_path.name
+                self.assert_files_equal(wif_path, actual_wif_path)
 
     def check_run_result(self, result, desired_prefix):
         """Check the result from running the function.
@@ -81,9 +81,9 @@ class TestDtxToWif(unittest.TestCase):
 
     def assert_files_equal(self, path1, path2):
         with self.subTest(path1=path1, path2=path2):
-            with open(path1, "r") as file1:
+            with path1.open("r") as file1:
                 data1 = file1.read()
-            with open(path2, "r") as file2:
+            with path2.open("r") as file2:
                 data2 = file2.read()
             assert data1 == data2
 

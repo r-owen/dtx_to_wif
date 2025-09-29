@@ -14,16 +14,16 @@ class TestWifReader(unittest.TestCase):
         for dtx_path in basic_dtx_dir.glob("*.dtx"):
             with self.subTest(file=dtx_path.stem):
                 wif_path = datadir / "desired_basic_wif" / (dtx_path.stem + ".wif")
-                with open(dtx_path, "r") as f:
+                with dtx_path.open("r") as f:
                     parsed_dtx = read_dtx(f)
-                with open(wif_path, "r") as f:
+                with wif_path.open("r") as f:
                     parsed_wif = read_wif(f)
                 assert parsed_dtx == parsed_wif
 
     def test_read_bad_files(self):
-        for wif_path_path in bad_wif_dir.rglob("*.wif"):
-            with self.subTest(file=wif_path_path.name):
-                with open(wif_path_path, "r") as f:
+        for wif_path in bad_wif_dir.rglob("*.wif"):
+            with self.subTest(file=wif_path.name):
+                with wif_path.open("r") as f:
                     with self.assertRaises(RuntimeError):
                         read_wif(f)
 
@@ -36,7 +36,7 @@ class TestWifReader(unittest.TestCase):
 
     def test_default_values(self):
         wif_path = datadir / "basic_wif" / "treadles with defaults.wif"
-        with open(wif_path, "r") as f:
+        with wif_path.open("r") as f:
             parsed_wif = read_wif(f)
         assert parsed_wif.liftplan == {}
         assert parsed_wif.tieup == {1: {1}, 2: {2, 4}}
@@ -53,7 +53,7 @@ class TestWifReader(unittest.TestCase):
 
     def test_default_liftplan_values(self):
         wif_path = datadir / "basic_wif" / "liftplan with defaults.wif"
-        with open(wif_path, "r") as f:
+        with wif_path.open("r") as f:
             parsed_wif = read_wif(f)
         assert parsed_wif.liftplan == {1: {1, 2, 4}, 4: {0, 3, 4}}
 
