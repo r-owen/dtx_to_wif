@@ -1,5 +1,12 @@
 # Version History
 
+## 4.4 2025-09-29
+
+Tweak PatternData to permit the following error: if warp.color or weft.color is out of range,
+but every warp or weft thread specifies a valid color (so the default color is never used),
+warn and change warp.color or weft.color to a valid value.
+This works around a bug in one WIF writer.
+
 ## 4.3.1 2025-06-03
 
 Fix an incompatibility with Python older than 3.12.
