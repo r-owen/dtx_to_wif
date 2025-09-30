@@ -4,6 +4,7 @@ __all__ = ["PatternData", "TreadlingType", "WarpWeftData"]
 
 import dataclasses
 import enum
+import warnings
 from typing import Any, TypeVar
 
 ValueType = TypeVar("ValueType")
@@ -108,6 +109,8 @@ class PatternData:
           since those values mean the same thing as no entry.
           However, 0 is not removed from sets containing other values.
 
+        * If `warp` or `weft`
+
     Raises:
         RuntimeError: If there is missing treadling information. The data must
             either include both of tieup and treadling, or else liftplan.
@@ -120,6 +123,11 @@ class PatternData:
         RuntimeError: If `color_table` is specified, but not `color_range`.
         RuntimeError: If `color_range` invalid: length != 2 or
             color_range[0] (min) >= color_range[1] (max)
+        RuntimeError: If any color value is out of range, with one exception:
+            if warp/weft.color is out of range, but every warp/weft thread
+            specifies a valid color, then issue a RuntimeWarning
+            and set warp/weft.color to the color of the first warp/weft thread.
+
     """
 
     name: str
@@ -280,9 +288,18 @@ class PatternData:
             ww_info = getattr(self, ww_name)
             if ww_info.color is not None:
                 if ww_info.color < 1 or ww_info.color > max_color_in_table:
-                    raise RuntimeError(
-                        f"Invalid {ww_name}.color {ww_info.color} not in range [0, {max_color_in_table}]"
-                    )
+                    errmsg = f"Invalid {ww_name}.color {ww_info.color} not in range [0, {max_color_in_table}]"
+                    if ww_colors.keys() == set(range(1, 1 + len(ww_colors))):
+                        # The invalid default color is not actually used,
+                        # so rather than reject the file,
+                        # warn and change the default color to something valid.
+                        warnings.warn(
+                            f"{errmsg}: changing to a valid value and continuing",
+                            category=RuntimeWarning,
+                        )
+                        ww_info.color = ww_colors[1]
+                    else:
+                        raise RuntimeError(errmsg)
 
     def _clean_dict(
         self, data: dict[int, ValueType], default_value: Any

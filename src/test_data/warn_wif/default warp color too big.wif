@@ -1,0 +1,107 @@
+[WIF]
+Version=1.1
+Date=April 20, 1997
+Developers=wif@mhsoft.com
+Source Program=Fiberworks PCW
+Source Version=4.2
+
+[CONTENTS]
+COLOR PALETTE=true
+TEXT=true
+WEAVING=true
+WARP=true
+WEFT=true
+COLOR TABLE=true
+THREADING=true
+TIEUP=true
+TREADLING=true
+LIFTPLAN=false
+WARP COLORS=true
+WEFT COLORS=true
+WARP SPACING=true
+WEFT SPACING=true
+WARP THICKNESS=false
+WEFT THICKNESS=false
+
+[TEXT]
+Title=many color single treadles.dtx
+
+[WARP COLORS]
+1=1
+2=2
+3=3
+4=4
+
+[WEFT COLORS]
+2=6
+3=7
+4=8
+5=9
+6=10
+
+[WARP SPACING]
+2=0.159
+3=0.106
+4=0.053
+
+[WEFT SPACING]
+1=0.053
+2=0.106
+3=0.159
+5=0.265
+6=0.318
+
+[THREADING]
+1=2
+2=3
+3=4
+4=1
+
+[TIEUP]
+1=1,2,3
+2=2,3,4
+3=1,3,4
+4=1,2,4
+5=1,3
+6=2,4
+
+[TREADLING]
+1=6
+2=5
+3=4
+4=3
+5=2
+6=1
+
+[WEAVING]
+Rising Shed=true
+Treadles=11
+Shafts=10
+
+[WARP]
+Threads=12
+Color=11
+Spacing=0.212
+Units=centimeters
+
+[WEFT]
+Threads=13
+Color=10
+Spacing=0.212
+Units=centimeters
+
+[COLOR TABLE]
+1=255,255,255
+2=255,0,0
+3=0,255,0
+4=0,0,255
+5=170,170,170
+6=0,0,0
+7=5,10,15
+8=20,25,30
+9=35,40,45
+10=50,55,60
+
+[COLOR PALETTE]
+Range=0,255
+Entries=10

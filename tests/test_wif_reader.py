@@ -57,6 +57,19 @@ class TestWifReader(unittest.TestCase):
             parsed_wif = read_wif(f)
         assert parsed_wif.liftplan == {1: {1, 2, 4}, 4: {0, 3, 4}}
 
+    def test_warnings(self):
+        warn_dir = datadir / "warn_wif"
+        for wif_path in warn_dir.glob("*.wif"):
+            with wif_path.open("r") as f:
+                with self.assertWarns(RuntimeWarning):
+                    parsed_wif = read_wif(f)
+                if "weft" in wif_path.stem:
+                    assert parsed_wif.warp.color == 4
+                    assert parsed_wif.weft.color == 5
+                else:
+                    assert parsed_wif.warp.color == 1
+                    assert parsed_wif.weft.color == 10
+
 
 if __name__ == "__main__":
     unittest.main()
