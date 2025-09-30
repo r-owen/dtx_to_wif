@@ -49,6 +49,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Installing</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#developer-info">Developer Info</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -87,19 +89,17 @@
                 <h1 id="installing">Installing</h1>
 <ol>
 <li>
-<p>Check if you have Python installed.</p>
+<p>Check if you have Python 3.10 or newer installed.</p>
 <p>Run your <a href="../#terminal-applications">terminal application</a>.</p>
 <p>At the prompt type:</p>
 <pre><code>python --version
 </code></pre>
 <p>If Python is installed, this will print a version number.
-If that version number is at least 3.7, you may skip the next step
-(though you might wish to upgrade your Python if it's very old).</p>
-<p>(People who wish to contribute to this package should install Python 3.10 or later,
-because mkdocs requires that to build documentation).</p>
+If that version number is at least 3.10, you may skip the next step
+(though you might wish to upgrade your Python in any case).</p>
 </li>
 <li>
-<p>If necessary, install <a href="https://www.python.org/downloads/">Python</a> 3.7 or later.</p>
+<p>If necessary, install <a href="https://www.python.org/downloads/">Python</a> 3.10 or later, preferably the current release.</p>
 <p>The link has installers for common operating systems.
 However, on Windows you may want to try Microsoft's app store.</p>
 </li>
@@ -134,6 +134,21 @@ Describing how is out of scope for this document, but instructions are widely av
 <p>You can also specify a specific version; seee pip's documentation for details.</p>
 </li>
 </ol>
+<h2 id="developer-info">Developer Info</h2>
+<p>To install the package in a locally editable form:</p>
+<ul>
+<li>
+<p>Fork the project and clone that to a local folder.</p>
+</li>
+<li>
+<p>Install an editable version of the package. From within the dtx_to_wif folder:</p>
+<p>python -m pip install -e ".[dev]"</p>
+</li>
+<li>
+<p>Run unit tests:</p>
+<p>python -m unittest tests/test_*.py</p>
+</li>
+</ul>
               
             </div>
           </div><footer>

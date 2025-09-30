@@ -464,6 +464,9 @@ Number of treadles.</p>
   since those values mean the same thing as no entry.
   However, 0 is not removed from sets containing other values.</p>
 </li>
+<li>
+<p>If <span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData.warp"><code>warp</code></span> or <span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData.weft"><code>weft</code></span></p>
+</li>
 </ul>
 </div>
 </div>
@@ -511,6 +514,14 @@ If <span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData.color_
  <span class="mkapi-dash">&mdash;</span>
 If <span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData.color_range"><code>color_range</code></span> invalid: length != 2 or
 color_range[0] (min) &gt;= color_range[1] (max)</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">RuntimeError</span>
+ <span class="mkapi-dash">&mdash;</span>
+If any color value is out of range, with one exception:
+if warp/weft.color is out of range, but every warp/weft thread
+specifies a valid color, then issue a RuntimeWarning
+and set warp/weft.color to the color of the first warp/weft thread.</p>
 </li>
 </ul>
 </div>

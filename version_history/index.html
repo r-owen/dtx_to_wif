@@ -53,6 +53,10 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Version History</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#44-2025-09-29">4.4 2025-09-29</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#431-2025-06-03">4.3.1 2025-06-03</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#43-2025-05-01">4.3 2025-05-01</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#421-2025-04-28">4.2.1 2025-04-28</a>
@@ -115,6 +119,14 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="version-history">Version History</h1>
+<h2 id="44-2025-09-29">4.4 2025-09-29</h2>
+<p>Tweak PatternData to permit the following error: if warp.color or weft.color is out of range,
+but every warp or weft thread specifies a valid color (so the default color is never used),
+warn and change warp.color or weft.color to a valid value.
+This works around a bug in one WIF writer.</p>
+<h2 id="431-2025-06-03">4.3.1 2025-06-03</h2>
+<p>Fix an incompatibility with Python older than 3.12.
+Document 3.10 as the earliest supported version of Python. (3.9 does not work.)</p>
 <h2 id="43-2025-05-01">4.3 2025-05-01</h2>
 <p>Add API documentation using MkAPI.</p>
 <p>Change code documentation from numpy to google doc format.</p>
