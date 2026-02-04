@@ -22,6 +22,7 @@ WARP SPACING=true
 WEFT SPACING=true
 WARP THICKNESS=false
 WEFT THICKNESS=false
+NOTES=true
 
 [TEXT]
 Title=many color liftplan and zeros.dtx
@@ -97,3 +98,8 @@ Units=centimeters
 [COLOR PALETTE]
 Range=0,255
 Entries=10
+
+[NOTES]
+1=Line 1 of notes
+2=Another line of notes
+3=The final line of notes

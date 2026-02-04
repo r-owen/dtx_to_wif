@@ -62,6 +62,12 @@ SpecificData = {
         "num_shafts": 4,
         "num_treadles": 4,
         "treadling_type": TreadlingType.Liftplan,
+        "notes": {
+            1: "Line 1 of notes",
+            2: "Another line of notes",
+            3: "The final line of notes",
+        },
+        "private_sections": {},
     },
     "many color multiple treadles and zeros": {
         "name": "many color multiple treadles and zeros.dtx",
@@ -110,6 +116,8 @@ SpecificData = {
         "num_shafts": 4,
         "num_treadles": 6,
         "treadling_type": TreadlingType.MultiTreadle,
+        "notes": {},
+        "private_sections": {},
     },
 }
 

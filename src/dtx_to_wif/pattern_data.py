@@ -86,6 +86,9 @@ class PatternData:
         source_version: Version of pogram that wrote the original file.
         num_shafts: Number of shafts.
         num_treadles: Number of treadles.
+        notes: Notes as a dict of line number: note
+        private_sections: App-specific data as a dict of
+            section name: dict of key: value, where both are strings.
 
     Note:
         Many fields are cleaned up in postprocessing:
@@ -150,6 +153,10 @@ class PatternData:
     source_version: str = "?"
     num_shafts: int = 0
     num_treadles: int = 0
+    notes: dict[int, str] = dataclasses.field(default_factory=dict)
+    private_sections: dict[str, dict[str, str]] = dataclasses.field(
+        default_factory=dict
+    )
 
     def __post_init__(self) -> None:
         # Test for missing color table before cleaning warp and weft colors

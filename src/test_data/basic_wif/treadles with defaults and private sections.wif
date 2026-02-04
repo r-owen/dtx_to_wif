@@ -22,9 +22,13 @@ WARP SPACING=true
 WEFT SPACING=true
 WARP THICKNESS=false
 WEFT THICKNESS=false
+PRIVATE SOMETHING=true
+PRIVATE SOMETHING ELSE=true
+PRIVATE SOMETHING ELSE1=true
+NOTES=true
 
 [TEXT]
-Title=treadles with defaults.dtx
+Title=treadles with defaults and private sections.dtx
 
 [WARP COLORS]
 2=4
@@ -99,3 +103,23 @@ Units=centimeters
 [COLOR PALETTE]
 Range=0,255
 Entries=10
+
+[NOTES]
+1=line 1 of notes
+2=notes line 2
+3=yet another line of notes
+
+[PRIVATE SOMETHING]
+empty_something=
+something=value of something
+5=value of key 5
+
+[PRIVATE SOMETHING ELSE]
+something_else=value of something else
+25=value of key 25
+empty_something_else=
+
+[PRIVATE SOMETHING ELSE1]
+190=value of key 190
+something_else1=value of something else1
+empty_something_else1=

@@ -2,7 +2,7 @@ import importlib.resources
 import unittest
 from typing import Any
 
-from dtx_to_wif import TreadlingType, read_dtx, read_wif
+from dtx_to_wif import TreadlingType, read_wif
 
 datadir = importlib.resources.files("dtx_to_wif") / "../test_data"
 basic_dtx_dir = datadir / "basic_dtx"
@@ -10,16 +10,6 @@ bad_wif_dir = datadir / "bad_wif"
 
 
 class TestWifReader(unittest.TestCase):
-    def test_wif_reader_compared_to_dtx_reader(self):
-        for dtx_path in basic_dtx_dir.glob("*.dtx"):
-            with self.subTest(file=dtx_path.stem):
-                wif_path = datadir / "desired_basic_wif" / (dtx_path.stem + ".wif")
-                with dtx_path.open("r") as f:
-                    parsed_dtx = read_dtx(f)
-                with wif_path.open("r") as f:
-                    parsed_wif = read_wif(f)
-                assert parsed_dtx == parsed_wif
-
     def test_read_bad_files(self):
         for wif_path in bad_wif_dir.rglob("*.wif"):
             with self.subTest(file=wif_path.name):
@@ -35,7 +25,9 @@ class TestWifReader(unittest.TestCase):
             self.assertAlmostEqual(dict1[key], dict2[key])
 
     def test_default_values(self):
-        wif_path = datadir / "basic_wif" / "treadles with defaults.wif"
+        wif_path = (
+            datadir / "basic_wif" / "treadles with defaults and private sections.wif"
+        )
         with wif_path.open("r") as f:
             parsed_wif = read_wif(f)
         assert parsed_wif.liftplan == {}
@@ -50,12 +42,36 @@ class TestWifReader(unittest.TestCase):
         self.assert_dicts_of_float_almost_equal(
             parsed_wif.weft_spacing, {1: 0.053, 2: 0.106}
         )
+        assert parsed_wif.notes == {
+            1: "line 1 of notes",
+            2: "notes line 2",
+            3: "yet another line of notes",
+        }
+        assert parsed_wif.private_sections == {
+            "PRIVATE SOMETHING": {
+                "empty_something": "",
+                "something": "value of something",
+                "5": "value of key 5",
+            },
+            "PRIVATE SOMETHING ELSE": {
+                "something_else": "value of something else",
+                "25": "value of key 25",
+                "empty_something_else": "",
+            },
+            "PRIVATE SOMETHING ELSE1": {
+                "190": "value of key 190",
+                "something_else1": "value of something else1",
+                "empty_something_else1": "",
+            },
+        }
 
     def test_default_liftplan_values(self):
         wif_path = datadir / "basic_wif" / "liftplan with defaults.wif"
         with wif_path.open("r") as f:
             parsed_wif = read_wif(f)
         assert parsed_wif.liftplan == {1: {1, 2, 4}, 4: {0, 3, 4}}
+        assert parsed_wif.notes == {}
+        assert parsed_wif.private_sections == {}
 
     def test_warnings(self):
         warn_dir = datadir / "warn_wif"

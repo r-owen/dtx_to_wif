@@ -46,11 +46,13 @@ WARP SPACING={as_wif_bool(data.warp_spacing)}
 WEFT SPACING={as_wif_bool(data.weft_spacing)}
 WARP THICKNESS={as_wif_bool(data.warp_thickness)}
 WEFT THICKNESS={as_wif_bool(data.weft_thickness)}
-
-[TEXT]
-Title={data.name}
+NOTES={as_wif_bool(data.notes)}
 """
     )
+    for section_name in data.private_sections:
+        f.write(f"{section_name}=TRUE\n")
+
+    f.write(f"\n[TEXT]\nTitle={data.name}\n")
 
     # Write WARP COLORS, WEFT COLORS
     for name in ("warp", "weft"):
@@ -143,3 +145,13 @@ Range={data.color_range[0]},{data.color_range[1]}
 Entries={len(data.color_table)}
 """
             )
+
+    if data.notes:
+        f.write("\n[NOTES]\n")
+        for line_num, note in data.notes.items():
+            f.write(f"{line_num}={note}\n")
+
+    for section_name, section_data in data.private_sections.items():
+        f.write(f"\n[{section_name}]\n")
+        for key, value in section_data.items():
+            f.write(f"{key}={value}\n")

@@ -22,6 +22,7 @@ WARP SPACING=true
 WEFT SPACING=true
 WARP THICKNESS=false
 WEFT THICKNESS=false
+NOTES=false
 
 [TEXT]
 Title=many color single treadles.dtx
