@@ -4,3 +4,4 @@ build
 dist
 site
 version.py
+.vscode/*
