@@ -2,7 +2,7 @@ __all__ = ["read_wif"]
 
 import warnings
 from configparser import ConfigParser, SectionProxy
-from typing import TextIO
+from typing import Any, TextIO
 
 from .pattern_data import PatternData, WarpWeftData
 
@@ -43,7 +43,7 @@ def read_wif(f: TextIO, filename: str = "?") -> PatternData:
                 raw_data.set(new_section_name, key, value)
             raw_data.remove_section(old_section_name)
 
-    parsed_data = {}
+    parsed_data: dict[str, Any] = {}
     for section_name, processor in section_dispatcher.items():
         if raw_data.has_section(section_name):
             section = raw_data[section_name]
