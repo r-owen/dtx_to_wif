@@ -49,7 +49,7 @@ def read_wif(f: TextIO, filename: str = "?") -> PatternData:
             section = raw_data[section_name]
             parsed_data[section_name] = processor(section)
         else:
-            parsed_data[section_name] = []
+            parsed_data[section_name] = {}
 
     for wwname in ("warp", "weft"):
         colorstr = raw_data.get(wwname, "color", fallback=None)
