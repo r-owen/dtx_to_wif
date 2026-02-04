@@ -53,6 +53,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Version History</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#45-2026-02-04">4.5 2026-02-04</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#44-2025-09-29">4.4 2025-09-29</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#431-2025-06-03">4.3.1 2025-06-03</a>
@@ -119,6 +121,13 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="version-history">Version History</h1>
+<h2 id="45-2026-02-04">4.5 2026-02-04</h2>
+<p>Handle notes in dtx and WIF files, and private sections in WIF files:</p>
+<ul>
+<li>PatternData: add <code>notes</code> and <code>private_sections</code> attributes.</li>
+<li>read_dtx: read the Notes section.</li>
+<li>read_wif and write_wif: read and write NOTES and PRIVATE... sections.</li>
+</ul>
 <h2 id="44-2025-09-29">4.4 2025-09-29</h2>
 <p>Tweak PatternData to permit the following error: if warp.color or weft.color is out of range,
 but every warp or weft thread specifies a valid color (so the default color is never used),

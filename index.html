@@ -145,9 +145,9 @@ It could also be used by pattern visualization software and weaving design softw
   This is just an internal detail, as the resulting pattern is the same.
   (I have not figured out the algorithm FiberWorks uses to choose default colors and separations.)</li>
 </ul>
-<p>The WeavePoint .wpo reader cannot read per-thread thickness or separation data.
+<p>The WeavePoint .wpo reader cannot read notes, thread thickness, nor thread separation.
 Due to this limitation I consider <code>wpo_to_wif</code> only marginally useful.
-The main use case for reading WeavePoint files is to support dobby loom control software.</p>
+However, is does allow <a href="https://pypi.org/project/base-loom-server/">base_loom_server</a> to work with WeavePoint files.</p>
 <h2 id="license">License</h2>
 <p>This software is licensed under the MIT license. See <a href="https://github.com/r-owen/dtx_to_wif/blob/main/license.txt">license.txt</a> for details.</p>
               
@@ -199,5 +199,5 @@ The main use case for reading WeavePoint files is to support dobby loom control 
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-09-30 16:19:17.928316+00:00
+Build Date UTC : 2026-02-04 20:29:17.859301+00:00
 -->
