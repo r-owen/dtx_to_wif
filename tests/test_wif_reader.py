@@ -6,7 +6,7 @@ from dtx_to_wif import TreadlingType, read_dtx, read_wif
 
 datadir = importlib.resources.files("dtx_to_wif") / "../test_data"
 basic_dtx_dir = datadir / "basic_dtx"
-bad_wif_dir = datadir / "bad_dtx"
+bad_wif_dir = datadir / "bad_wif"
 
 
 class TestWifReader(unittest.TestCase):
