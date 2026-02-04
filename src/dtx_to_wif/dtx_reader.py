@@ -51,6 +51,8 @@ def read_dtx(f: TextIO, filename: str = "?") -> PatternData:
         filename: The file name. Usually ignored, but used as the pattern name
             if the dtx file does not have a "description" section.
     """
+    # a dict of section name (each matching a field in PatternData):
+    # data in PatternData format.
     sections = dict()
     section_name = ""
     for line in f:
@@ -124,7 +126,7 @@ def process_color_table(section_info) -> dict[int, tuple[int, int, int]]:
     for i, rgb_str in enumerate(section_info.data):
         rgb_tuple = tuple(int(value) for value in rgb_str.split(","))
         if len(rgb_tuple) != 3:
-            raise RuntimeError(f"Color {i+1}={rgb_str} invalid; not 3 ints:")
+            raise RuntimeError(f"Color {i + 1}={rgb_str} invalid; not 3 ints:")
         result[i + 1] = rgb_tuple
     return result
 
@@ -244,6 +246,15 @@ def process_treadling(treadling_info: SectionData) -> dict[int, set[int]]:
     }
 
 
+def process_notes(section_info: SectionData) -> dict[int, str]:
+    """Process the notes section
+
+    The input data is a list of strings.
+    Return a dict of 1-based line number: string.
+    """
+    return {i + 1: line for i, line in enumerate(section_info.data)}
+
+
 def get_data_item(
     data: dict[str, SectionData], section_name: str, index: int, default: str
 ) -> str:
@@ -295,4 +306,5 @@ section_dispatcher = dict(
     weft_colors=process_warpweft_colors,
     warp_spacing=process_warpweft_spacing,
     weft_spacing=process_warpweft_spacing,
+    notes=process_notes,
 )

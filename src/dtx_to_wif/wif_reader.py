@@ -2,7 +2,7 @@ __all__ = ["read_wif"]
 
 import warnings
 from configparser import ConfigParser, SectionProxy
-from typing import TextIO
+from typing import Any, TextIO
 
 from .pattern_data import PatternData, WarpWeftData
 
@@ -35,7 +35,10 @@ def read_wif(f: TextIO, filename: str = "?") -> PatternData:
 
     # Change section names to lowercase and " " to "_"
     # (this is harder than it should be)
+    # but do not change PRIVATE... sections
     for old_section_name in raw_data.sections():
+        if old_section_name.startswith("PRIVATE"):
+            continue
         new_section_name = old_section_name.lower().replace(" ", "_")
         if new_section_name != old_section_name:
             raw_data.add_section(new_section_name)
@@ -43,13 +46,19 @@ def read_wif(f: TextIO, filename: str = "?") -> PatternData:
                 raw_data.set(new_section_name, key, value)
             raw_data.remove_section(old_section_name)
 
-    parsed_data = {}
+    parsed_data: dict[str, Any] = {}
     for section_name, processor in section_dispatcher.items():
         if raw_data.has_section(section_name):
             section = raw_data[section_name]
             parsed_data[section_name] = processor(section)
         else:
-            parsed_data[section_name] = []
+            parsed_data[section_name] = {}
+    for section_name in raw_data.sections():
+        if section_name.startswith("PRIVATE "):
+            # Make sure "private_sections" exists
+            parsed_data.setdefault("private_sections", dict())
+            section_data = {key: value for key, value in raw_data[section_name].items()}
+            parsed_data["private_sections"][section_name] = section_data  # noqa
 
     for wwname in ("warp", "weft"):
         colorstr = raw_data.get(wwname, "color", fallback=None)
@@ -104,6 +113,12 @@ def process_as_dict_of_int(section: SectionProxy) -> dict[int, int]:
     }
 
 
+def process_as_dict_of_str(section: SectionProxy) -> dict[int, str]:
+    """Process as a dict of int: str"""
+    value = {int(key): value for key, value in section.items()}
+    return value
+
+
 def process_color_table(section: SectionProxy) -> dict[int, tuple[int, int, int]]:
     """Process the color table"""
     result = {}
@@ -147,4 +162,5 @@ section_dispatcher = dict(
     weft_spacing=process_as_dict_of_float,
     warp_thickness=process_as_dict_of_float,
     weft_thickness=process_as_dict_of_float,
+    notes=process_as_dict_of_str,
 )

@@ -1,5 +1,13 @@
 # Version History
 
+## 4.5 2026-02-04
+
+Handle notes in dtx and WIF files, and private sections in WIF files:
+
+* PatternData: add `notes` and `private_sections` attributes.
+* read_dtx: read the Notes section.
+* read_wif and write_wif: read and write NOTES and PRIVATE... sections.
+
 ## 4.4 2025-09-29
 
 Tweak PatternData to permit the following error: if warp.color or weft.color is out of range,

@@ -69,9 +69,9 @@ Known differences from the WIF files that FiberWorks writes:
   This is just an internal detail, as the resulting pattern is the same.
   (I have not figured out the algorithm FiberWorks uses to choose default colors and separations.)
 
-The WeavePoint .wpo reader cannot read per-thread thickness or separation data.
+The WeavePoint .wpo reader cannot read notes, thread thickness, nor thread separation.
 Due to this limitation I consider `wpo_to_wif` only marginally useful.
-The main use case for reading WeavePoint files is to support dobby loom control software.
+However, is does allow [base_loom_server](https://pypi.org/project/base-loom-server/) to work with WeavePoint files.
 
 ## License
 

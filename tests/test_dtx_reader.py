@@ -1,9 +1,11 @@
 import importlib.resources
 import unittest
 
-from dtx_to_wif import read_dtx
+from dtx_to_wif import read_dtx, read_wif
 
-bad_dtx_dir = importlib.resources.files("dtx_to_wif") / "../test_data/bad_dtx"
+datadir = importlib.resources.files("dtx_to_wif") / "../test_data"
+bad_dtx_dir = datadir / "bad_dtx"
+basic_dtx_dir = datadir / "basic_dtx"
 
 
 class TestDtxReader(unittest.TestCase):
@@ -15,6 +17,16 @@ class TestDtxReader(unittest.TestCase):
                 with dtx_file_path.open("r") as f:
                     with self.assertRaises(RuntimeError):
                         read_dtx(f)
+
+    def test_read_dtx_compared_to_read_wif(self):
+        for dtx_path in basic_dtx_dir.glob("*.dtx"):
+            with self.subTest(file=dtx_path.stem):
+                wif_path = datadir / "desired_basic_wif" / (dtx_path.stem + ".wif")
+                with dtx_path.open("r") as f:
+                    parsed_dtx = read_dtx(f)
+                with wif_path.open("r") as f:
+                    parsed_wif = read_wif(f)
+                assert parsed_dtx == parsed_wif
 
 
 if __name__ == "__main__":
