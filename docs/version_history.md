@@ -1,5 +1,13 @@
 # Version History
 
+## 4.5.1 2026-03-11
+
+Be more flexible about malformed WIF files, specifically:
+
+* Accept files that have values with no = after them.
+* Accept duplicate entries.
+* Ignore initial lines before the [WIF] section.
+
 ## 4.5 2026-02-04
 
 Handle notes in dtx and WIF files, and private sections in WIF files:
