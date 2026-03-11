@@ -1,3 +1,5 @@
+some initial garbage lines
+to test how forgiving the reader is
 [WIF]
 Version=1.1
 Date=April 20, 1997
@@ -11,6 +13,8 @@ TEXT=true
 WEAVING=true
 WARP=true
 WEFT=true
+COLOR TABLE=true
+; duplicate entry to test forgiveness
 COLOR TABLE=true
 THREADING=true
 TIEUP=false
@@ -29,7 +33,8 @@ Title=liftplan with defaults.dtx
 [THREADING]
 1=3
 2=2
-3=
+; missing = to test forgiveness
+3 
 5=0
 
 [LIFTPLAN]

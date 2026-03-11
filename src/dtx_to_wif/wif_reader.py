@@ -30,7 +30,18 @@ def read_wif(f: TextIO, filename: str = "?") -> PatternData:
         filename: The file name. Usually ignored, but used as the pattern name
             if the wif file does not have a Title line in the [TEXT] section.
     """
-    raw_data = ConfigParser()
+    raw_data = ConfigParser(allow_no_value=True, strict=False)
+    if f.seekable():
+        # Purge initial data until [WIF] (case blind)
+        prev_position = f.tell()
+        while True:
+            line = f.readline()
+            if line.strip().lower() == "[wif]":
+                f.seek(prev_position)
+                break
+            prev_position = f.tell()
+        else:
+            raise RuntimeError(f"{filename=} is not a WIF file: no [WIF] section found")
     raw_data.read_file(f)
 
     # Change section names to lowercase and " " to "_"
