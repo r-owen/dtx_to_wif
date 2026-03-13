@@ -40,7 +40,7 @@ If you run the command with option `-h` you will see all available options.
 
 ## Reading Files Into Memory
 
-dtx_to_wif can read .dtx, .wif, and .wpo pattern files into an instance of [dtx_to_wif.PatternData][dtx_to_wif.pattern_data.PatternData].
+dtx_to_wif can read .dtx, .wif, .wifw, and .wpo pattern files into an instance of [dtx_to_wif.PatternData][dtx_to_wif.pattern_data.PatternData].
 This is used by [base_loom_server](https://r-owen.github.io/base_loom_server) dobby loom control software.
 It could also be used by pattern visualization software and weaving design software.
 
@@ -71,7 +71,7 @@ Known differences from the WIF files that FiberWorks writes:
 
 The WeavePoint .wpo reader cannot read notes, thread thickness, nor thread separation.
 Due to this limitation I consider `wpo_to_wif` only marginally useful.
-However, is does allow [base_loom_server](https://pypi.org/project/base-loom-server/) to work with WeavePoint files.
+However, the WeavePoint support is sufficient to allow [base_loom_server](https://pypi.org/project/base-loom-server/) to work with WeavePoint files.
 
 ## License
 

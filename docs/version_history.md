@@ -1,5 +1,9 @@
 # Version History
 
+## 4.5.2 2026-03-13
+
+* Read .wifw files. These are standard WIF files with a nonstandard extension that may be written by WeaveIt.
+
 ## 4.5.1 2026-03-11
 
 Be more flexible about malformed WIF files, specifically:
