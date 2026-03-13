@@ -24,6 +24,7 @@ class ReaderInfo:
 Readers = {
     ".dtx": ReaderInfo(reader=read_dtx, is_binary=False),
     ".wif": ReaderInfo(reader=read_wif, is_binary=False),
+    ".wifw": ReaderInfo(reader=read_wif, is_binary=False),
     ".wpo": ReaderInfo(reader=read_wpo, is_binary=True),
 }
 
