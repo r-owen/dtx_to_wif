@@ -1,11 +1,15 @@
 import importlib.resources
+import pathlib
+import shutil
+import tempfile
 import unittest
 from typing import Any
 
-from dtx_to_wif import TreadlingType, read_wif
+from dtx_to_wif import TreadlingType, read_pattern_file, read_wif
 
 datadir = importlib.resources.files("dtx_to_wif") / "../test_data"
 basic_dtx_dir = datadir / "basic_dtx"
+basic_wif_dir = datadir / "basic_wif"
 bad_wif_dir = datadir / "bad_wif"
 
 
@@ -72,6 +76,20 @@ class TestWifReader(unittest.TestCase):
         assert parsed_wif.liftplan == {1: {1, 2, 4}, 4: {0, 3, 4}}
         assert parsed_wif.notes == {}
         assert parsed_wif.private_sections == {}
+
+    def test_read_wifw(self):
+        """Check that wifw is handled just like wif."""
+        with tempfile.TemporaryDirectory() as tempdirname:
+            wifw_dir = pathlib.Path(tempdirname)
+            for wif_path in basic_wif_dir.glob("*.wif"):
+                wifw_path = wifw_dir / wif_path.with_suffix(".wifw").name
+                shutil.copy(wif_path, wifw_path)
+                wif1 = read_pattern_file(wif_path)
+                with wif_path.open("r") as f:
+                    wif2 = read_wif(f, filename=wif_path.name)
+                wifw = read_pattern_file(wifw_path)
+                assert wif2 == wif1
+                assert wif1 == wifw
 
     def test_warnings(self):
         warn_dir = datadir / "warn_wif"
