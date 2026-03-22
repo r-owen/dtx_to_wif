@@ -226,7 +226,7 @@ class PatternData:
             if self.num_treadles < max_treadle_ind_from_treadling:
                 raise RuntimeError(
                     "Found more treadles in treadling than in tieup: "
-                    f"{self.num_treadles} > {max_treadle_ind_from_treadling}"
+                    f"{max_treadle_ind_from_treadling} > {self.num_treadles}"
                 )
 
         elif self.liftplan:
