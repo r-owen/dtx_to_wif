@@ -1,5 +1,11 @@
 # Version History
 
+## 4.6.0 2026-05-22
+
+* Add class BinaryFileReader to simplify code that reads binary weaving files, such as WeavePoint files.
+* Update wpo_reader to use BinaryFileReader.
+* Fix an error message in PatternData (two numbers were swapped).
+
 ## 4.5.2 2026-03-13
 
 * Read .wifw files. These are standard WIF files with a nonstandard extension that may be written by WeaveIt.
