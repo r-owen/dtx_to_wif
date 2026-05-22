@@ -53,6 +53,12 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Version History</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#460-2026-05-22">4.6.0 2026-05-22</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#452-2026-03-13">4.5.2 2026-03-13</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#451-2026-03-11">4.5.1 2026-03-11</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#45-2026-02-04">4.5 2026-02-04</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#44-2025-09-29">4.4 2025-09-29</a>
@@ -121,6 +127,23 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="version-history">Version History</h1>
+<h2 id="460-2026-05-22">4.6.0 2026-05-22</h2>
+<ul>
+<li>Add class BinaryFileReader to simplify code that reads binary weaving files, such as WeavePoint files.</li>
+<li>Update wpo_reader to use BinaryFileReader.</li>
+<li>Fix an error message in PatternData (two numbers were swapped).</li>
+</ul>
+<h2 id="452-2026-03-13">4.5.2 2026-03-13</h2>
+<ul>
+<li>Read .wifw files. These are standard WIF files with a nonstandard extension that may be written by WeaveIt.</li>
+</ul>
+<h2 id="451-2026-03-11">4.5.1 2026-03-11</h2>
+<p>Be more flexible about malformed WIF files, specifically:</p>
+<ul>
+<li>Accept files that have values with no = after them.</li>
+<li>Accept duplicate entries.</li>
+<li>Ignore initial lines before the [WIF] section.</li>
+</ul>
 <h2 id="45-2026-02-04">4.5 2026-02-04</h2>
 <p>Handle notes in dtx and WIF files, and private sections in WIF files:</p>
 <ul>

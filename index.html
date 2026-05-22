@@ -122,7 +122,7 @@ If a WIF file with that path already exists, the old file is left unchanged, wit
 To overwrite existing files, run the command with option <code>--overwrite</code>.</p>
 <p>If you run the command with option <code>-h</code> you will see all available options.</p>
 <h2 id="reading-files-into-memory">Reading Files Into Memory</h2>
-<p>dtx_to_wif can read .dtx, .wif, and .wpo pattern files into an instance of [dtx_to_wif.PatternData][dtx_to_wif.pattern_data.PatternData].
+<p>dtx_to_wif can read .dtx, .wif, .wifw, and .wpo pattern files into an instance of [dtx_to_wif.PatternData][dtx_to_wif.pattern_data.PatternData].
 This is used by <a href="https://r-owen.github.io/base_loom_server">base_loom_server</a> dobby loom control software.
 It could also be used by pattern visualization software and weaving design software.</p>
 <p>To read a weaving pattern from a file, call [dtx_to_wif.read_pattern_file][dtx_to_wif.pattern_reader.read_pattern_file]. To read a weaving pattern from a string, call [dtx_to_wif.read_pattern_data][dtx_to_wif.pattern_reader.read_pattern_data].</p>
@@ -147,7 +147,7 @@ It could also be used by pattern visualization software and weaving design softw
 </ul>
 <p>The WeavePoint .wpo reader cannot read notes, thread thickness, nor thread separation.
 Due to this limitation I consider <code>wpo_to_wif</code> only marginally useful.
-However, is does allow <a href="https://pypi.org/project/base-loom-server/">base_loom_server</a> to work with WeavePoint files.</p>
+However, the WeavePoint support is sufficient to allow <a href="https://pypi.org/project/base-loom-server/">base_loom_server</a> to work with WeavePoint files.</p>
 <h2 id="license">License</h2>
 <p>This software is licensed under the MIT license. See <a href="https://github.com/r-owen/dtx_to_wif/blob/main/license.txt">license.txt</a> for details.</p>
               
@@ -199,5 +199,5 @@ However, is does allow <a href="https://pypi.org/project/base-loom-server/">base
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-02-04 20:29:17.859301+00:00
+Build Date UTC : 2026-05-22 22:34:29.380967+00:00
 -->

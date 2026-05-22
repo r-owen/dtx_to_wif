@@ -58,6 +58,26 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">dtx_to_wif</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader">BinaryFileReader</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader.read_bytes">read_bytes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader.read_int">read_int</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader.read_int8">read_int8</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader.read_int16">read_int16</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader.read_int32">read_int32</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader.read_uint8">read_uint8</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader.read_uint16">read_uint16</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.BinaryFileReader.read_uint32">read_uint32</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.TreadlingType">TreadlingType</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.WarpWeftData">WarpWeftData</a>
@@ -130,6 +150,11 @@
 <div class="mkapi-section-content">
 <ul class="mkapi-item-list">
 <li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+A binary file reader.</p>
+</li>
+<li>
 <p><span class="mkapi-item-name"><a href="./#dtx_to_wif.TreadlingType" title="dtx_to_wif.TreadlingType">TreadlingType</a></span></p>
 </li>
 <li>
@@ -193,6 +218,385 @@ Write a WIF file from parsed dtx data to the specified file.</p>
 <p><span class="mkapi-item-name"><a href="./#dtx_to_wif.read_wpo" title="dtx_to_wif.read_wpo">read_wpo</a></span>
  <span class="mkapi-dash">&mdash;</span>
 Read a WeavePoint wpo weaving file as PatternData</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader">
+<span class="mkapi-object-link">
+
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">class</span>
+<span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">f</span><span class="mkapi-colon">: </span><span class="mkapi-ann"><span class="mkapi-tooltip" title="typing.BinaryIO">BinaryIO</span></span><span class="mkapi-comma">, </span><span class="mkapi-arg">big_endian</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool</span><span class="mkapi-paren">)</span></span>
+</p>
+<div class="mkapi-document">
+<p>A binary file reader.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">f</span> : 
+<span class="mkapi-item-type"><span class="mkapi-tooltip" title="typing.BinaryIO">BinaryIO</span></span> <span class="mkapi-dash">&mdash;</span>
+The file to read.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">big_endian</span> : 
+<span class="mkapi-item-type">bool</span> <span class="mkapi-dash">&mdash;</span>
+Is most data big-endian?
+Used as the default for reading integers.</p>
+</li>
+</ul>
+</div>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle methods">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Methods</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader.read_bytes" title="dtx_to_wif.BinaryFileReader.read_bytes">read_bytes</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read exactly num_bytes bytes (possibly using multiple reads).</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader.read_int" title="dtx_to_wif.BinaryFileReader.read_int">read_int</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read num_bytes bytes as a signed or unsigned integer.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader.read_int8" title="dtx_to_wif.BinaryFileReader.read_int8">read_int8</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read a 1-byte signed int.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader.read_int16" title="dtx_to_wif.BinaryFileReader.read_int16">read_int16</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read a 2-byte signed int.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader.read_int32" title="dtx_to_wif.BinaryFileReader.read_int32">read_int32</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read a 4-byte signed int.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader.read_uint8" title="dtx_to_wif.BinaryFileReader.read_uint8">read_uint8</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read a 1-byte unsigned int.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader.read_uint16" title="dtx_to_wif.BinaryFileReader.read_uint16">read_uint16</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read a 2-byte unsigned int.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.BinaryFileReader.read_uint32" title="dtx_to_wif.BinaryFileReader.read_uint32">read_uint32</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read a 4-byte unsigned int.</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader.read_bytes">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader.read_bytes" title="dtx_to_wif.BinaryFileReader.read_bytes">read_bytes</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">num_bytes</span><span class="mkapi-colon">: </span><span class="mkapi-ann">int</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">bytes</span></span>
+</p>
+<div class="mkapi-document">
+<p>Read exactly num_bytes bytes (possibly using multiple reads).</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle raises">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Raises</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">EOFError</span>
+ <span class="mkapi-dash">&mdash;</span>
+If EOF seen.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">ValueError</span>
+ <span class="mkapi-dash">&mdash;</span>
+If num_bytes &lt; 1.</p>
+</li>
+<li>
+<p><span class="mkapi-item-type">RuntimeError</span></p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader.read_int">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader.read_int" title="dtx_to_wif.BinaryFileReader.read_int">read_int</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-star">*</span><span class="mkapi-comma">, </span><span class="mkapi-arg">num_bytes</span><span class="mkapi-colon">: </span><span class="mkapi-ann">int</span><span class="mkapi-comma">, </span><span class="mkapi-arg">signed</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool</span><span class="mkapi-comma">, </span><span class="mkapi-arg">big_endian</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool | None</span><span class="mkapi-equal"> = </span><span class="mkapi-default">None</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document">
+<p>Read num_bytes bytes as a signed or unsigned integer.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">num_bytes</span> : 
+<span class="mkapi-item-type">int</span> <span class="mkapi-dash">&mdash;</span>
+The number of bytes to read.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">signed</span> : 
+<span class="mkapi-item-type">bool</span> <span class="mkapi-dash">&mdash;</span>
+Is the integer be signed?</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">big_endian</span> : 
+<span class="mkapi-item-type">bool | None</span> <span class="mkapi-dash">&mdash;</span>
+Is the integer big-endian? Specify None for default.</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader.read_int8">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader.read_int8" title="dtx_to_wif.BinaryFileReader.read_int8">read_int8</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">big_endian</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool | None</span><span class="mkapi-equal"> = </span><span class="mkapi-default">None</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document">
+<p>Read a 1-byte signed int.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">big_endian</span> : 
+<span class="mkapi-item-type">bool | None</span> <span class="mkapi-dash">&mdash;</span>
+Is the integer big-endian? Specify None for default.</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader.read_int16">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader.read_int16" title="dtx_to_wif.BinaryFileReader.read_int16">read_int16</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">big_endian</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool | None</span><span class="mkapi-equal"> = </span><span class="mkapi-default">None</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document">
+<p>Read a 2-byte signed int.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">big_endian</span> : 
+<span class="mkapi-item-type">bool | None</span> <span class="mkapi-dash">&mdash;</span>
+Is the integer big-endian? Specify None for default.</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader.read_int32">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader.read_int32" title="dtx_to_wif.BinaryFileReader.read_int32">read_int32</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">big_endian</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool | None</span><span class="mkapi-equal"> = </span><span class="mkapi-default">None</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document">
+<p>Read a 4-byte signed int.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">big_endian</span> : 
+<span class="mkapi-item-type">bool | None</span> <span class="mkapi-dash">&mdash;</span>
+Is the integer big-endian? Specify None for default.</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader.read_uint8">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader.read_uint8" title="dtx_to_wif.BinaryFileReader.read_uint8">read_uint8</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">big_endian</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool | None</span><span class="mkapi-equal"> = </span><span class="mkapi-default">None</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document">
+<p>Read a 1-byte unsigned int.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">big_endian</span> : 
+<span class="mkapi-item-type">bool | None</span> <span class="mkapi-dash">&mdash;</span>
+Is the integer big-endian? Specify None for default.</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader.read_uint16">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader.read_uint16" title="dtx_to_wif.BinaryFileReader.read_uint16">read_uint16</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">big_endian</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool | None</span><span class="mkapi-equal"> = </span><span class="mkapi-default">None</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document">
+<p>Read a 2-byte unsigned int.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">big_endian</span> : 
+<span class="mkapi-item-type">bool | None</span> <span class="mkapi-dash">&mdash;</span>
+Is the integer big-endian? Specify None for default.</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.BinaryFileReader.read_uint32">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.BinaryFileReader" title="dtx_to_wif.BinaryFileReader">BinaryFileReader</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.BinaryFileReader.read_uint32" title="dtx_to_wif.BinaryFileReader.read_uint32">read_uint32</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">big_endian</span><span class="mkapi-colon">: </span><span class="mkapi-ann">bool | None</span><span class="mkapi-equal"> = </span><span class="mkapi-default">None</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document">
+<p>Read a 4-byte unsigned int.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">big_endian</span> : 
+<span class="mkapi-item-type">bool | None</span> <span class="mkapi-dash">&mdash;</span>
+Is the integer big-endian? Specify None for default.</p>
 </li>
 </ul>
 </div>
