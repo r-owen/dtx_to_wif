@@ -5,7 +5,7 @@ You do not need a copy of FiberWorks or WeavePoint to use this software.
 
 Conversion is done using a [terminal](#terminal-applications). If you are not comfortable using a terminal, this may not be the right package for you.
 
-This package can also be used by weaving-related software to [read supported weaving pattern files](#reading-files-into-memory).
+This package can also be used by weaving-related software to [read weaving pattern files into memory](#reading-files-into-memory).
 
 ## Converting Files
 

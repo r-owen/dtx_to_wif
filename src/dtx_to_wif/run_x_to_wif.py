@@ -1,4 +1,4 @@
-__all__ = ["run_dtx_to_wif", "run_wpo_to_wif"]
+__all__ = ["run_dtx_to_wif", "run_twa_to_wif", "run_wpo_to_wif"]
 
 import argparse
 import pathlib
@@ -80,6 +80,11 @@ def run_x_to_wif(suffix: str) -> None:
 def run_dtx_to_wif() -> None:
     """Command-line script to convert FiberWorks .dtx files to WIF."""
     run_x_to_wif(".dtx")
+
+
+def run_twa_to_wif() -> None:
+    """Command-line script convert TempoWeave .twa files to WIF."""
+    run_x_to_wif(".twa")
 
 
 def run_wpo_to_wif() -> None:

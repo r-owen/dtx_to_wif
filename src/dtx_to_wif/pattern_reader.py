@@ -10,6 +10,7 @@ from typing import Any
 
 from .dtx_reader import read_dtx
 from .pattern_data import PatternData
+from .twa_reader import read_twa
 from .wif_reader import read_wif
 from .wpo_reader import read_wpo
 
@@ -23,7 +24,9 @@ class ReaderInfo:
 #: A dict of file suffix: ReaderInfo
 Readers = {
     ".dtx": ReaderInfo(reader=read_dtx, is_binary=False),
+    ".twa": ReaderInfo(reader=read_twa, is_binary=True),
     ".wif": ReaderInfo(reader=read_wif, is_binary=False),
+    # .wifw is just another name for .wif that WeaveIt Pro can use
     ".wifw": ReaderInfo(reader=read_wif, is_binary=False),
     ".wpo": ReaderInfo(reader=read_wpo, is_binary=True),
 }
