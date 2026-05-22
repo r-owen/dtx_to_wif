@@ -1,5 +1,9 @@
 # Version History
 
+## 4.7.0 2026-05-??
+
+* Add support for TempoWeave twa files, including command line utility `twa_to_wif`.
+
 ## 4.6.0 2026-05-22
 
 * Add class BinaryFileReader to simplify code that reads binary weaving files, such as WeavePoint files.
