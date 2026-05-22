@@ -1,5 +1,19 @@
 # Version History
 
+## 4.7.0 2026-06-06
+
+* Warning: this version requires Python 3.11 (it formerly required 3.10).
+* Add support for TempoWeave twa files, including command line utility `twa_to_wif`.
+* Add command-line utility `diff_weaving`.
+* Add utility function `make_liftplan`.
+* Improve the WIF reader and `PatternData` class to handle missing default values:
+
+    * If warp or weft thickness or separation are specified but the corresponding
+      default value is not, ignore the thickness or separation data with a warning.
+    * Treat a missing default warp or weft color the same as a default color that is out of range:
+      if the default value is used (because some ends or picks don't specify color),
+      reject the data; otherwise warn and set the default to a valid value.
+
 ## 4.6.0 2026-05-22
 
 * Add class BinaryFileReader to simplify code that reads binary weaving files, such as WeavePoint files.
