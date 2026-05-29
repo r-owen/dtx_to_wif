@@ -33,7 +33,7 @@ class TestWpoToWif(unittest.TestCase):
             )
             self.check_run_result(result, desired_prefix="Writing")
             actual_paths = [path for path in actual_dir.rglob("*.wpo")]
-            assert len(actual_paths) == 9
+            assert len(actual_paths) == 8
             for wpo_path in actual_paths:
                 wif_path = wpo_path.with_suffix(".wif")
                 assert wif_path.is_file()

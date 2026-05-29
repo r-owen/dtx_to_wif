@@ -81,7 +81,7 @@ class TestWifReader(unittest.TestCase):
         """Check that wifw is handled just like wif."""
         with tempfile.TemporaryDirectory() as tempdirname:
             wifw_dir = pathlib.Path(tempdirname)
-            for wif_path in basic_wif_dir.glob("*.wif"):
+            for wif_path in basic_wif_dir.rglob("*.wif"):
                 wifw_path = wifw_dir / wif_path.with_suffix(".wifw").name
                 shutil.copy(wif_path, wifw_path)
                 wif1 = read_pattern_file(wif_path)
@@ -93,7 +93,7 @@ class TestWifReader(unittest.TestCase):
 
     def test_warnings(self):
         warn_dir = datadir / "warn_wif"
-        for wif_path in warn_dir.glob("*.wif"):
+        for wif_path in warn_dir.rglob("*.wif"):
             with wif_path.open("r") as f:
                 with self.assertWarns(RuntimeWarning):
                     parsed_wif = read_wif(f)

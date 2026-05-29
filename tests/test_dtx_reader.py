@@ -19,7 +19,9 @@ class TestDtxReader(unittest.TestCase):
                         read_dtx(f)
 
     def test_read_dtx_compared_to_read_wif(self):
-        for dtx_path in basic_dtx_dir.glob("*.dtx"):
+        files_found = 0
+        for dtx_path in basic_dtx_dir.rglob("*.dtx"):
+            files_found += 1
             with self.subTest(file=dtx_path.stem):
                 wif_path = datadir / "desired_basic_wif" / (dtx_path.stem + ".wif")
                 with dtx_path.open("r") as f:
@@ -27,6 +29,7 @@ class TestDtxReader(unittest.TestCase):
                 with wif_path.open("r") as f:
                     parsed_wif = read_wif(f)
                 assert parsed_dtx == parsed_wif
+        assert files_found == 5
 
 
 if __name__ == "__main__":

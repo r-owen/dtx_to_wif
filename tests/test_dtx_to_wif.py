@@ -28,7 +28,7 @@ class TestDtxToWif(unittest.TestCase):
             )
             self.check_run_result(result, desired_prefix="Writing")
             actual_paths = [path for path in actual_dir.rglob("*.dtx")]
-            assert len(actual_paths) == 6
+            assert len(actual_paths) == 5
             for dtxpath in actual_paths:
                 wif_path = dtxpath.with_suffix(".wif")
                 assert wif_path.is_file()
