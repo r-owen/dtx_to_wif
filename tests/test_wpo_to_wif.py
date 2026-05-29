@@ -23,7 +23,7 @@ class TestWpoToWif(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tempdirname:
             tempdir = pathlib.Path(tempdirname)
             for subdirname in (ACTUAL_DIR, EXPECTED_DIR):
-                shutil.copytree(datadir / subdirname, tempdir / subdirname)
+                shutil.copytree(datadir / subdirname, tempdir / subdirname)  # type: ignore
 
             actual_dir = tempdir / ACTUAL_DIR
             actual_dir_str = actual_dir.as_posix()

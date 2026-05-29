@@ -12,7 +12,7 @@ class TestDtxReader(unittest.TestCase):
     def test_read_bad_files(self):
         # Note: a few errors are not possible in dtx files,
         # since the data is in lists, not dicts. Test what we can.
-        for dtx_file_path in bad_dtx_dir.rglob("*.dtx"):
+        for dtx_file_path in bad_dtx_dir.rglob("*.dtx"):  # type: ignore
             with self.subTest(file=dtx_file_path.name):
                 with dtx_file_path.open("r") as f:
                     with self.assertRaises(RuntimeError):
@@ -20,7 +20,7 @@ class TestDtxReader(unittest.TestCase):
 
     def test_read_dtx_compared_to_read_wif(self):
         files_found = 0
-        for dtx_path in basic_dtx_dir.rglob("*.dtx"):
+        for dtx_path in basic_dtx_dir.rglob("*.dtx"):  # type: ignore
             files_found += 1
             with self.subTest(file=dtx_path.stem):
                 wif_path = datadir / "desired_basic_wif" / (dtx_path.stem + ".wif")

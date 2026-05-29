@@ -10,7 +10,7 @@ basic_twa_dir = datadir / "basic_twa"
 class TestTWAReader(unittest.TestCase):
     def test_read_twa_compared_to_read_wif(self):
         files_found = 0
-        for twa_path in basic_twa_dir.rglob("*.twa"):
+        for twa_path in basic_twa_dir.rglob("*.twa"):  # type: ignore
             files_found += 1
             if True:
                 # with self.subTest(file=twa_path.stem):

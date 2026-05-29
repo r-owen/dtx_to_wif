@@ -18,7 +18,7 @@ class TestDtxToWif(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tempdirname:
             tempdir = pathlib.Path(tempdirname)
             for subdirname in (ACTUAL_SUBDIR, EXPECTED_SUBDIR):
-                shutil.copytree(datadir / subdirname, tempdir / subdirname)
+                shutil.copytree(datadir / subdirname, tempdir / subdirname)  # type: ignore
 
             actual_dir = tempdir / ACTUAL_SUBDIR
             actual_dir_str = actual_dir.as_posix()

@@ -15,7 +15,7 @@ bad_wif_dir = datadir / "bad_wif"
 
 class TestWifReader(unittest.TestCase):
     def test_read_bad_files(self):
-        for wif_path in bad_wif_dir.rglob("*.wif"):
+        for wif_path in bad_wif_dir.rglob("*.wif"):  # type: ignore
             with self.subTest(file=wif_path.name):
                 with wif_path.open("r") as f:
                     with self.assertRaises(RuntimeError):
@@ -33,7 +33,7 @@ class TestWifReader(unittest.TestCase):
             datadir / "basic_wif" / "treadles with defaults and private sections.wif"
         )
         with wif_path.open("r") as f:
-            parsed_wif = read_wif(f)
+            parsed_wif = read_wif(f)  # type: ignore
         assert parsed_wif.liftplan == {}
         assert parsed_wif.tieup == {1: {1}, 2: {2, 4}}
         assert parsed_wif.treadling == {1: {1, 6}, 2: {5}, 3: {0, 2, 5}}
@@ -72,7 +72,7 @@ class TestWifReader(unittest.TestCase):
     def test_default_liftplan_values(self):
         wif_path = datadir / "basic_wif" / "liftplan with defaults.wif"
         with wif_path.open("r") as f:
-            parsed_wif = read_wif(f)
+            parsed_wif = read_wif(f)  # type: ignore
         assert parsed_wif.liftplan == {1: {1, 2, 4}, 4: {0, 3, 4}}
         assert parsed_wif.notes == {}
         assert parsed_wif.private_sections == {}
@@ -81,7 +81,7 @@ class TestWifReader(unittest.TestCase):
         """Check that wifw is handled just like wif."""
         with tempfile.TemporaryDirectory() as tempdirname:
             wifw_dir = pathlib.Path(tempdirname)
-            for wif_path in basic_wif_dir.rglob("*.wif"):
+            for wif_path in basic_wif_dir.rglob("*.wif"):  # type: ignore
                 wifw_path = wifw_dir / wif_path.with_suffix(".wifw").name
                 shutil.copy(wif_path, wifw_path)
                 wif1 = read_pattern_file(wif_path)
@@ -93,7 +93,7 @@ class TestWifReader(unittest.TestCase):
 
     def test_warnings(self):
         warn_dir = datadir / "warn_wif"
-        for wif_path in warn_dir.rglob("*.wif"):
+        for wif_path in warn_dir.rglob("*.wif"):  # type: ignore
             with wif_path.open("r") as f:
                 with self.assertWarns(RuntimeWarning):
                     parsed_wif = read_wif(f)
