@@ -82,7 +82,7 @@ Units=centimeters
 
 [WEFT]
 Threads=13
-Color=11
+# Color=1  Omit this value to trigger a warning
 Spacing=0.212
 Units=centimeters
 

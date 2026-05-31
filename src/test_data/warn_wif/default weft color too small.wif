@@ -2,12 +2,9 @@
 Version=1.1
 Date=April 20, 1997
 Developers=wif@mhsoft.com
-Source Program=Fiberworks PCW
-Source Version=4.2
 
 [CONTENTS]
 COLOR PALETTE=true
-TEXT=true
 WEAVING=true
 WARP=true
 WEFT=true
@@ -22,9 +19,6 @@ WARP SPACING=true
 WEFT SPACING=true
 WARP THICKNESS=false
 WEFT THICKNESS=false
-
-[TEXT]
-Title=many color single treadles.dtx
 
 [WARP COLORS]
 2=2

@@ -2,8 +2,6 @@
 Version=1.1
 Date=April 20, 1997
 Developers=wif@mhsoft.com
-Source Program=Fiberworks PCW
-Source Version=4.2
 
 [CONTENTS]
 COLOR PALETTE=true
@@ -23,12 +21,12 @@ WARP THICKNESS=false
 WEFT THICKNESS=false
 
 [WARP COLORS]
+1=1
 2=2
 3=3
 4=4
 
 [WEFT COLORS]
-1=5
 2=6
 3=7
 4=8
@@ -36,7 +34,7 @@ WEFT THICKNESS=false
 6=10
 
 [WARP SPACING]
-2=0.159
+1=0.159
 3=0.106
 4=0.053
 
@@ -76,13 +74,13 @@ Shafts=10
 
 [WARP]
 Threads=12
-Color=4
-Spacing=0.212
+Color=1
+# Spacing=0.212  Omit this value to trigger a warning
 Units=centimeters
 
 [WEFT]
 Threads=13
-Color=11
+Color=10
 Spacing=0.212
 Units=centimeters
 

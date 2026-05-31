@@ -23,12 +23,12 @@ WARP THICKNESS=false
 WEFT THICKNESS=false
 
 [WARP COLORS]
+1=1
 2=2
 3=3
 4=4
 
 [WEFT COLORS]
-1=5
 2=6
 3=7
 4=8
@@ -36,6 +36,7 @@ WEFT THICKNESS=false
 6=10
 
 [WARP SPACING]
+1=0.159
 2=0.159
 3=0.106
 4=0.053
@@ -43,7 +44,7 @@ WEFT THICKNESS=false
 [WEFT SPACING]
 1=0.053
 2=0.106
-3=0.159
+4=0.053
 5=0.265
 6=0.318
 
@@ -76,14 +77,14 @@ Shafts=10
 
 [WARP]
 Threads=12
-Color=4
+Color=1
 Spacing=0.212
 Units=centimeters
 
 [WEFT]
 Threads=13
-Color=11
-Spacing=0.212
+Color=2
+# Spacing=0.212  Omit this value to trigger a warning
 Units=centimeters
 
 [COLOR TABLE]

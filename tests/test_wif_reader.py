@@ -94,15 +94,24 @@ class TestWifReader(unittest.TestCase):
     def test_warnings(self):
         warn_dir = datadir / "warn_wif"
         for wif_path in warn_dir.rglob("*.wif"):  # type: ignore
-            with wif_path.open("r") as f:
-                with self.assertWarns(RuntimeWarning):
-                    parsed_wif = read_wif(f)
-                if "weft" in wif_path.stem:
-                    assert parsed_wif.warp.color == 4
-                    assert parsed_wif.weft.color == 5
-                else:
-                    assert parsed_wif.warp.color == 1
-                    assert parsed_wif.weft.color == 10
+            with self.subTest(file=wif_path.name):
+                with wif_path.open("r") as f:
+                    with self.assertWarns(UserWarning):
+                        parsed_wif = read_wif(f)
+                    if "weft color" in wif_path.stem:
+                        assert parsed_wif.warp.color == 4
+                        assert parsed_wif.weft.color == 5
+                    elif "warp color" in wif_path.stem:
+                        assert parsed_wif.warp.color == 1
+                        assert parsed_wif.weft.color == 10
+                    elif "warp spacing" in wif_path.stem:
+                        assert not parsed_wif.warp_spacing
+                    elif "weft spacing" in wif_path.stem:
+                        assert not parsed_wif.weft_spacing
+                    elif "warp thickness" in wif_path.stem:
+                        assert not parsed_wif.warp_thickness
+                    elif "weft thickness" in wif_path.stem:
+                        assert not parsed_wif.weft_thickness
 
 
 if __name__ == "__main__":

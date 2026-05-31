@@ -7,6 +7,7 @@ Source Version=4.2
 
 [CONTENTS]
 COLOR PALETTE=true
+TEXT=true
 WEAVING=true
 WARP=true
 WEFT=true
@@ -22,13 +23,15 @@ WEFT SPACING=true
 WARP THICKNESS=false
 WEFT THICKNESS=false
 
+[TEXT]
+Title=many color single treadles.dtx
+
 [WARP COLORS]
 2=2
 3=3
 4=4
 
 [WEFT COLORS]
-1=5
 2=6
 3=7
 4=8
@@ -76,13 +79,13 @@ Shafts=10
 
 [WARP]
 Threads=12
-Color=4
+# Color=1 Omit to cause an error
 Spacing=0.212
 Units=centimeters
 
 [WEFT]
 Threads=13
-Color=11
+Color=5
 Spacing=0.212
 Units=centimeters
 

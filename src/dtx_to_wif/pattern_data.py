@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-__all__ = ["PatternData", "TreadlingType", "WarpWeftData"]
+__all__ = ["PatternData", "TreadlingType", "WarpWeftData", "make_liftplan"]
 
 import dataclasses
 import enum
@@ -8,6 +8,10 @@ import warnings
 from typing import Any, TypeVar
 
 ValueType = TypeVar("ValueType")
+
+# In Python 3.11 and later one could replace these with enum.StrEnum
+FloatAttributeNames = ("spacing", "thickness")
+WarpWeftNames = ("warp", "weft")
 
 
 class TreadlingType(enum.Enum):
@@ -112,7 +116,15 @@ class PatternData:
           since those values mean the same thing as no entry.
           However, 0 is not removed from sets containing other values.
 
-        * If `warp` or `weft`
+        * Issue a UserWarning and set warp/weft_thickness/separation
+          to an empty dict if data is provided but the corresponding
+          default value warp/weft.thickness/separation is None.
+
+        * Issue a UserWarning and set the default warp/weft.color
+          to the color of the first warp/weft thread if the value
+          is invalid (None or out of range) but not used
+          (because every warp/weft thread has a specified color).
+          If the value is used, raise RuntimeError, as described below.
 
     Raises:
         RuntimeError: If there is missing treadling information. The data must
@@ -126,11 +138,13 @@ class PatternData:
         RuntimeError: If `color_table` is specified, but not `color_range`.
         RuntimeError: If `color_range` invalid: length != 2 or
             color_range[0] (min) >= color_range[1] (max)
-        RuntimeError: If any color value is out of range, with one exception:
-            if warp/weft.color is out of range, but every warp/weft thread
-            specifies a valid color, then issue a RuntimeWarning
-            and set warp/weft.color to the color of the first warp/weft thread.
-
+        RuntimeError: If any warp/weft_color value is out of range.
+        RuntimeError: If the default value warp/weft.color is None
+            or out of range, and the value is used (because some
+            warp/weft_color entries are missing). If the value is not used,
+            set a valid value and issue a UserWarning, as described above.
+        RuntimeError: If warp/weft_thickness/separation specified, but the
+            corresponding default value warp/weft.thickness/separation is None.
     """
 
     name: str
@@ -169,12 +183,12 @@ class PatternData:
 
         # Clean up warp/weft colors, spacing, and threading dicts
         # Put the keys in thread order and elide default values (if known).
-        for ww in ("warp", "weft"):
-            for field_name in ("colors", "spacing", "thickness"):
+        for warp_weft in WarpWeftNames:
+            for field_name in ("colors", *FloatAttributeNames):
                 # The default color name has no final s; all other names match
                 default_name = {"colors": "color"}.get(field_name, field_name)
-                dict_name = f"{ww}_{field_name}"
-                default_class = getattr(self, ww, None)
+                dict_name = f"{warp_weft}_{field_name}"
+                default_class = getattr(self, warp_weft, None)
                 if default_class is not None:
                     default_value = getattr(default_class, f"{default_name}")
                 else:
@@ -280,33 +294,65 @@ class PatternData:
 
         # Check that all color values are in range
         max_color_in_table = max(self.color_table.keys())
-        for ww_name in ("warp", "weft"):
-            ww_colors = getattr(self, f"{ww_name}_colors")
+        for warp_weft in WarpWeftNames:
+            ww_colors = getattr(self, f"{warp_weft}_colors")
             if ww_colors:
                 if max(ww_colors.values()) > max_color_in_table:
                     raise RuntimeError(
-                        f"Invalid {ww_name}_colors={ww_colors}: "
+                        f"Invalid {warp_weft}_colors={ww_colors}: "
                         f"one or more colors > {max_color_in_table}; "
                     )
-                if min(getattr(self, f"{ww_name}_colors").values()) < 1:
+                if min(getattr(self, f"{warp_weft}_colors").values()) < 1:
                     raise RuntimeError(
-                        f"Invalid {ww_name}_colors={ww_colors}: one or more colors < 1"
+                        f"Invalid {warp_weft}_colors={ww_colors}: one or more colors < 1"
                     )
-            ww_info = getattr(self, ww_name)
-            if ww_info.color is not None:
-                if ww_info.color < 1 or ww_info.color > max_color_in_table:
-                    errmsg = f"Invalid {ww_name}.color {ww_info.color} not in range [0, {max_color_in_table}]"
-                    if ww_colors.keys() == set(range(1, 1 + len(ww_colors))):
-                        # The invalid default color is not actually used,
-                        # so rather than reject the file,
-                        # warn and change the default color to something valid.
-                        warnings.warn(
-                            f"{errmsg}: changing to a valid value and continuing",
-                            category=RuntimeWarning,
-                        )
-                        ww_info.color = ww_colors[1]
-                    else:
-                        raise RuntimeError(errmsg)
+            ww_info = getattr(self, warp_weft)
+            if (
+                ww_info.color is None
+                or ww_info.color < 1
+                or ww_info.color > max_color_in_table
+            ):
+                if ww_info.color is None:
+                    errmsg = f"{warp_weft}.color {ww_info.color} not specified"
+                else:
+                    errmsg = (
+                        f"Invalid {warp_weft}.color {ww_info.color} "
+                        f"not in range [0, {max_color_in_table}]"
+                    )
+
+                if ww_colors.keys() == set(range(1, 1 + len(ww_colors))):
+                    # The invalid default color is not actually used,
+                    # so rather than reject the file,
+                    # warn and change the default color to something valid.
+                    warnings.warn(f"{errmsg}: changing to a valid value and continuing")
+                    ww_info.color = ww_colors[1]
+                else:
+                    raise RuntimeError(errmsg)
+
+        for warp_weft in WarpWeftNames:
+            ww_info = getattr(self, warp_weft)
+            for meas in FloatAttributeNames:
+                datadict = getattr(self, f"{warp_weft}_{meas}")
+                default = getattr(ww_info, meas)
+                if not datadict:
+                    # We don't care if the default is None,
+                    # since there is no corresponding data
+                    continue
+                if default is None and datadict:
+                    warnings.warn(
+                        f"Ignoring {warp_weft}_{meas}: default value not specified",
+                    )
+                    setattr(self, f"{warp_weft}_{meas}", dict())
+
+    def get_num_ends(self) -> int:
+        return max(self.threading)
+
+    def get_num_picks(self) -> int:
+        if self.liftplan:
+            return max(self.liftplan)
+        elif self.treadling:
+            return max(self.treadling)
+        return 0
 
     def _clean_dict(
         self, data: dict[int, ValueType], default_value: Any
@@ -321,3 +367,22 @@ class PatternData:
     def _clean_ints_set_dict(self, data: dict[int, set[int]]) -> dict[int, set[int]]:
         """Sort by keys and remove items with default value ({} or {0})."""
         return {key: data[key] for key in sorted(data) if bool(data[key] - {0})}
+
+
+def make_liftplan(pattern: PatternData) -> dict[int, set[int]]:
+    """Generate a lift plan, with no 0 in the shafts and no empty shaft sets"""
+    if pattern.liftplan:
+        return {
+            pick: shaft_set - {0}
+            for pick, shaft_set in pattern.liftplan.items()
+            if shaft_set - {0}
+        }
+
+    result: dict[int, set[int]] = {}
+    for pick, treadle_set in pattern.treadling.items():
+        shaft_set: set[int] = set()
+        for treadle in treadle_set - {0}:
+            shaft_set |= pattern.tieup[treadle]
+        if shaft_set:
+            result[pick] = shaft_set
+    return result
