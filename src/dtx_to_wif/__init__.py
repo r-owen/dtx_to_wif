@@ -13,3 +13,4 @@ from .twa_reader import *
 from .wif_reader import *
 from .wif_writer import *
 from .wpo_reader import *
+from .diff_patterns import *
