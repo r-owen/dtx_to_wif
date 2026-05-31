@@ -25,6 +25,7 @@ requires-python = ">=3.11"
 dtx_to_wif = "dtx_to_wif:run_dtx_to_wif"
 twa_to_wif = "dtx_to_wif:run_twa_to_wif"
 wpo_to_wif = "dtx_to_wif:run_wpo_to_wif"
+diff_weaving = "dtx_to_wif:run_diff_weaving"
 
 [project.optional-dependencies]
 # To contribute to the package.
