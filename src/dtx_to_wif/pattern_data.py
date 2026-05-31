@@ -9,9 +9,16 @@ from typing import Any, TypeVar
 
 ValueType = TypeVar("ValueType")
 
+
 # In Python 3.11 and later one could replace these with enum.StrEnum
-FloatAttributeNames = ("spacing", "thickness")
-WarpWeftNames = ("warp", "weft")
+class FloatAttributeNames(enum.StrEnum):
+    spacing = "spacing"
+    thickness = "thickness"
+
+
+class WarpWeftNames(enum.StrEnum):
+    warp = "warp"
+    weft = "weft"
 
 
 class TreadlingType(enum.Enum):
