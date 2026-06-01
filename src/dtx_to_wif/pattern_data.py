@@ -370,7 +370,10 @@ class PatternData:
 
 
 def make_liftplan(pattern: PatternData) -> dict[int, set[int]]:
-    """Generate a lift plan, with no 0 in the shafts and no empty shaft sets"""
+    """Generate a lift plan, with no 0 in the shafts and no empty shaft sets.
+
+    If pattern has both a liftplan and treadling, ignore the treadling.
+    """
     if pattern.liftplan:
         return {
             pick: shaft_set - {0}
