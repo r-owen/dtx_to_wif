@@ -83,6 +83,14 @@
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.WarpWeftData">WarpWeftData</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.PatternData">PatternData</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.PatternData.get_num_ends">get_num_ends</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dtx_to_wif.PatternData.get_num_picks">get_num_picks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.make_liftplan">make_liftplan</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.read_pattern_data">read_pattern_data</a>
     </li>
@@ -90,15 +98,23 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.run_dtx_to_wif">run_dtx_to_wif</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.run_twa_to_wif">run_twa_to_wif</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.run_wpo_to_wif">run_wpo_to_wif</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.read_dtx">read_dtx</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.read_twa">read_twa</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.read_wif">read_wif</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.write_wif">write_wif</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.read_wpo">read_wpo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.diff_patterns">diff_patterns</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dtx_to_wif.run_diff_weaving">run_diff_weaving</a>
     </li>
     </ul>
                   </li>
@@ -180,6 +196,11 @@ Data for a weaving pattern.</p>
 <div class="mkapi-section-content">
 <ul class="mkapi-item-list">
 <li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.make_liftplan" title="dtx_to_wif.make_liftplan">make_liftplan</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Generate a lift plan, with no 0 in the shafts and no empty shaft sets.</p>
+</li>
+<li>
 <p><span class="mkapi-item-name"><a href="./#dtx_to_wif.read_pattern_data" title="dtx_to_wif.read_pattern_data">read_pattern_data</a></span>
  <span class="mkapi-dash">&mdash;</span>
 Read a weaving pattern from a data string.</p>
@@ -195,6 +216,11 @@ Read a weaving pattern file</p>
 Command-line script to convert FiberWorks .dtx files to WIF.</p>
 </li>
 <li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.run_twa_to_wif" title="dtx_to_wif.run_twa_to_wif">run_twa_to_wif</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Command-line script convert TempoWeave .twa files to WIF.</p>
+</li>
+<li>
 <p><span class="mkapi-item-name"><a href="./#dtx_to_wif.run_wpo_to_wif" title="dtx_to_wif.run_wpo_to_wif">run_wpo_to_wif</a></span>
  <span class="mkapi-dash">&mdash;</span>
 Command-line script convert WeavePoint .wpo files to WIF.</p>
@@ -203,6 +229,11 @@ Command-line script convert WeavePoint .wpo files to WIF.</p>
 <p><span class="mkapi-item-name"><a href="./#dtx_to_wif.read_dtx" title="dtx_to_wif.read_dtx">read_dtx</a></span>
  <span class="mkapi-dash">&mdash;</span>
 Parse a dtx weaving file into PatternData</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.read_twa" title="dtx_to_wif.read_twa">read_twa</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Read a TempoWeave twa weaving file as PatternData.</p>
 </li>
 <li>
 <p><span class="mkapi-item-name"><a href="./#dtx_to_wif.read_wif" title="dtx_to_wif.read_wif">read_wif</a></span>
@@ -218,6 +249,16 @@ Write a WIF file from parsed dtx data to the specified file.</p>
 <p><span class="mkapi-item-name"><a href="./#dtx_to_wif.read_wpo" title="dtx_to_wif.read_wpo">read_wpo</a></span>
  <span class="mkapi-dash">&mdash;</span>
 Read a WeavePoint wpo weaving file as PatternData</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.diff_patterns" title="dtx_to_wif.diff_patterns">diff_patterns</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Compare two patterns and describe differences in drawdown or color.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.run_diff_weaving" title="dtx_to_wif.run_diff_weaving">run_diff_weaving</a></span>
+ <span class="mkapi-dash">&mdash;</span>
+Command-line script to compare two pattern files.</p>
 </li>
 </ul>
 </div>
@@ -880,7 +921,16 @@ section name: dict of key: value, where both are strings.</p>
   However, 0 is not removed from sets containing other values.</p>
 </li>
 <li>
-<p>If <span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData.warp"><code>warp</code></span> or <span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData.weft"><code>weft</code></span></p>
+<p>Issue a UserWarning and set warp/weft_thickness/separation
+  to an empty dict if data is provided but the corresponding
+  default value warp/weft.thickness/separation is None.</p>
+</li>
+<li>
+<p>Issue a UserWarning and set the default warp/weft.color
+  to the color of the first warp/weft thread if the value
+  is invalid (None or out of range) but not used
+  (because every warp/weft thread has a specified color).
+  If the value is used, raise RuntimeError, as described below.</p>
 </li>
 </ul>
 </div>
@@ -933,13 +983,87 @@ color_range[0] (min) &gt;= color_range[1] (max)</p>
 <li>
 <p><span class="mkapi-item-name">RuntimeError</span>
  <span class="mkapi-dash">&mdash;</span>
-If any color value is out of range, with one exception:
-if warp/weft.color is out of range, but every warp/weft thread
-specifies a valid color, then issue a RuntimeWarning
-and set warp/weft.color to the color of the first warp/weft thread.</p>
+If any warp/weft_color value is out of range.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">RuntimeError</span>
+ <span class="mkapi-dash">&mdash;</span>
+If the default value warp/weft.color is None
+or out of range, and the value is used (because some
+warp/weft_color entries are missing). If the value is not used,
+set a valid value and issue a UserWarning, as described above.</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">RuntimeError</span>
+ <span class="mkapi-dash">&mdash;</span>
+If warp/weft_thickness/separation specified, but the
+corresponding default value warp/weft.thickness/separation is None.</p>
 </li>
 </ul>
 </div>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle methods">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Methods</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.PatternData.get_num_ends" title="dtx_to_wif.PatternData.get_num_ends">get_num_ends</a></span></p>
+</li>
+<li>
+<p><span class="mkapi-item-name"><a href="./#dtx_to_wif.PatternData.get_num_picks" title="dtx_to_wif.PatternData.get_num_picks">get_num_picks</a></span></p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.PatternData.get_num_ends">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.PatternData" title="dtx_to_wif.PatternData">PatternData</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.PatternData.get_num_ends" title="dtx_to_wif.PatternData.get_num_ends">get_num_ends</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document"></div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.PatternData.get_num_picks">
+<span class="mkapi-object-link">
+<span class="mkapi-parent-toggle" title="Toggle class names">
+<i class="fa-solid fa-square-plus"></i>
+</span>
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span><span class="mkapi-object-kind">method</span>
+<span class="mkapi-object-parent">
+<a href="./#dtx_to_wif.PatternData" title="dtx_to_wif.PatternData">PatternData</a><span class="mkapi-dot">.</span></span><span class="mkapi-object-name"><a href="./#dtx_to_wif.PatternData.get_num_picks" title="dtx_to_wif.PatternData.get_num_picks">get_num_picks</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">int</span></span>
+</p>
+<div class="mkapi-document"></div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.make_liftplan">
+<span class="mkapi-object-link">
+
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-object-name"><a href="./#dtx_to_wif.make_liftplan" title="dtx_to_wif.make_liftplan">make_liftplan</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">pattern</span><span class="mkapi-colon">: </span><span class="mkapi-ann"><span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData">PatternData</span></span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">dict[int, set[int]]</span></span>
+</p>
+<div class="mkapi-document">
+<p>Generate a lift plan, with no 0 in the shafts and no empty shaft sets.</p>
+<p>If pattern has both a liftplan and treadling, ignore the treadling.</p>
 </div>
 <p class="mkapi-object mkapi-page-source" id="dtx_to_wif.read_pattern_data">
 <span class="mkapi-object-link">
@@ -1059,6 +1183,20 @@ Path to file.</p>
 <div class="mkapi-document">
 <p>Command-line script to convert FiberWorks .dtx files to WIF.</p>
 </div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.run_twa_to_wif">
+<span class="mkapi-object-link">
+
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-object-name"><a href="./#dtx_to_wif.run_twa_to_wif" title="dtx_to_wif.run_twa_to_wif">run_twa_to_wif</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">None</span></span>
+</p>
+<div class="mkapi-document">
+<p>Command-line script convert TempoWeave .twa files to WIF.</p>
+</div>
 <p class="mkapi-object mkapi-page-source" id="dtx_to_wif.run_wpo_to_wif">
 <span class="mkapi-object-link">
 
@@ -1107,6 +1245,44 @@ The dtx file.</p>
 <span class="mkapi-item-type">str</span> <span class="mkapi-dash">&mdash;</span>
 The file name. Usually ignored, but used as the pattern name
 if the dtx file does not have a "description" section.</p>
+</li>
+</ul>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.read_twa">
+<span class="mkapi-object-link">
+
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-object-name"><a href="./#dtx_to_wif.read_twa" title="dtx_to_wif.read_twa">read_twa</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">f</span><span class="mkapi-colon">: </span><span class="mkapi-ann"><span class="mkapi-tooltip" title="typing.BinaryIO">BinaryIO</span></span><span class="mkapi-comma">, </span><span class="mkapi-arg">filename</span><span class="mkapi-colon">: </span><span class="mkapi-ann">str</span><span class="mkapi-equal"> = </span><span class="mkapi-default">'?'</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return"><span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData">PatternData</span></span></span>
+</p>
+<div class="mkapi-document">
+<p>Read a TempoWeave twa weaving file as PatternData.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">f</span> : 
+<span class="mkapi-item-type"><span class="mkapi-tooltip" title="typing.BinaryIO">BinaryIO</span></span> <span class="mkapi-dash">&mdash;</span>
+A readable binary file</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">filename</span> : 
+<span class="mkapi-item-type">str</span> <span class="mkapi-dash">&mdash;</span>
+The file name. Usually ignored, but used as the pattern name
+if the wif file inside the twa file does not have
+a Title line in the [TEXT] section.</p>
 </li>
 </ul>
 </div>
@@ -1267,6 +1443,104 @@ The file name. Used as the pattern name.</p>
 </li>
 </ul>
 </div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.diff_patterns">
+<span class="mkapi-object-link">
+
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-object-name"><a href="./#dtx_to_wif.diff_patterns" title="dtx_to_wif.diff_patterns">diff_patterns</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-arg">pattern1</span><span class="mkapi-colon">: </span><span class="mkapi-ann"><span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData">PatternData</span></span><span class="mkapi-comma">, </span><span class="mkapi-arg">pattern2</span><span class="mkapi-colon">: </span><span class="mkapi-ann"><span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData">PatternData</span></span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">list[str]</span></span>
+</p>
+<div class="mkapi-document">
+<p>Compare two patterns and describe differences in drawdown or color.</p>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle parameters">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Parameters</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">pattern1</span> : 
+<span class="mkapi-item-type"><span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData">PatternData</span></span> <span class="mkapi-dash">&mdash;</span>
+First pattern to compare</p>
+</li>
+<li>
+<p><span class="mkapi-item-name">pattern2</span> : 
+<span class="mkapi-item-type"><span class="mkapi-tooltip" title="dtx_to_wif.pattern_data.PatternData">PatternData</span></span> <span class="mkapi-dash">&mdash;</span>
+Second pattern to compare</p>
+</li>
+</ul>
+</div>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle returns">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Returns</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-type">list[str]</span> <span class="mkapi-dash">&mdash;</span>
+A list of strings describing differences.
+The list is empty if the files are the same.</p>
+</li>
+</ul>
+</div>
+<p class="mkapi-section">
+<span class="mkapi-object-link">
+<span class="mkapi-section-toggle" title="Toggle raises">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-section-name">Raises</span>
+</p>
+<div class="mkapi-section-content">
+<ul class="mkapi-item-list">
+<li>
+<p><span class="mkapi-item-name">RuntimeError if color_range is None in pattern1 or pattern2.</span></p>
+</li>
+</ul>
+</div>
+<div class="mkapi-section-content">
+<div class="admonition note">
+<p class="admonition-title">Notes</p>
+<p>For threading, ignores shaft 0.</p>
+<p>For picks, compares actual shafts lifted (igoring shaft 0),
+so any combination of liftplan, single treadling,
+and multiple treadling, may compare equal.</p>
+<p>Ignores notes and private sections.</p>
+<p>Ignores yarn thickness and separation, because those are difficult
+to compare. Different programs quantize them differently,
+and some units cannot be converted to others, so it is unclear
+how to do this reliably well. Worse, if unit conversion is required,
+it is possible to get different results depending on the order
+in which the patterns are specified.</p>
+</div>
+</div>
+</div>
+<p class="mkapi-object mkapi-page-source" id="dtx_to_wif.run_diff_weaving">
+<span class="mkapi-object-link">
+
+<span class="mkapi-definition-link"></span>
+
+<span class="mkapi-document-toggle" title="Toggle all docs">
+<i class="fa-regular fa-square-minus"></i>
+</span>
+</span>
+<span class="mkapi-object-name"><a href="./#dtx_to_wif.run_diff_weaving" title="dtx_to_wif.run_diff_weaving">run_diff_weaving</a></span><span class="mkapi-signature"><span class="mkapi-paren">(</span><span class="mkapi-paren">)</span><span class="mkapi-arrow"> → </span><span class="mkapi-return">None</span></span>
+</p>
+<div class="mkapi-document">
+<p>Command-line script to compare two pattern files.</p>
 </div>
               
             </div>

@@ -45,7 +45,11 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#converting-files">Converting Files</a>
+    <li class="toctree-l2"><a class="reference internal" href="#supported-formats">Supported formats</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#converting-files-to-wif">Converting Files To WIF</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#differencing-files">Differencing Files</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#reading-files-into-memory">Reading Files Into Memory</a>
     </li>
@@ -53,7 +57,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#links">Links</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a>
+    <li class="toctree-l2"><a class="reference internal" href="#known-limitations">Known Limitations</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#license">License</a>
     </li>
@@ -97,36 +101,72 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="dtx_to_wif">dtx_to_wif</h1>
-<p>Convert FiberWorks .dtx and WeavePoint .wpo weaving pattern files to WIF 1.1.
-You do not need a copy of FiberWorks or WeavePoint to use this software.</p>
-<p>Conversion is done using a <a href="#terminal-applications">terminal</a>. If you are not comfortable using a terminal, this may not be the right package for you.</p>
-<p>This package can also be used by weaving-related software to <a href="#reading-files-into-memory">read supported weaving pattern files</a>.</p>
-<h2 id="converting-files">Converting Files</h2>
+<p>This package supports three different tasks:</p>
+<ol>
+<li>
+<p><a href="#converting-files-to-wif">Convert several kinds of weaving files to WIF</a>.</p>
+</li>
+<li>
+<p><a href="#differencing-files">Find differences between two weaving pattern files</a>.</p>
+</li>
+<li>
+<p><a href="#reading-files-into-memory">Read weaving files into memory</a>.</p>
+</li>
+</ol>
+<p>This package is meant to be used from the <a href="#terminal-applications">terminal</a>. If you are not comfortable using a terminal, this may not be the right package for you.</p>
+<h2 id="supported-formats">Supported formats</h2>
+<p>dtx_to_wif can convert the following kinds of weaving design files to WIF 1.1 files:</p>
+<ul>
+<li>FiberWorks .dtx files</li>
+<li>TempoWeave .twa files</li>
+<li>
+<p>WeavePoint .wpo files (partially: see <a href="#known-limitations">known limitations</a>)</p>
+</li>
+<li>
+<p>It can also read standard WIF files that have the .wif or .wifw extension.
+  This is useful for differencing files or reading them into memory.
+  (.wifw is a non-standard extension that may be written by WeaveIt).</p>
+</li>
+</ul>
+<h2 id="converting-files-to-wif">Converting Files To WIF</h2>
 <p>First <a href="installing/">install</a> the software.
-Pay careful attention to where the <code>dtx_to_wif</code> and <code>wpo_to_wif</code> executables are installed.
+Pay careful attention to where the <code>dtx_to_wif</code>, etc. executables are installed.
 The path will be long on Windows.</p>
 <p>Run your <a href="#terminal-applications">terminal application</a>.</p>
-<p>Type the following on macOS or unix:</p>
-<pre><code>dtx_to_wif path1 path2 ...
-</code></pre>
-<p>If dtx_to_wif is not found, specify the path to it, as described in <a href="installing/">installing</a>.</p>
+<p>Type one of the following on macOS or unix:</p>
+<p><div class="highlight"><pre><span></span><code>dtx_to_wif path1 path2 ...
+twa_to_wif path1 path2 ...
+wpo_to_wif path1 path2 ...
+</code></pre></div>
+If the program is not found, specify the path to it, as described in <a href="installing/">installing</a>.</p>
 <p>On Windows type:</p>
-<pre><code>&lt;...path to dtx_to_wif...&gt;\dtx_to_wif.exe path1 path2 ...
-</code></pre>
-<p>where <code>&lt;...path to dtx_to_wif...&gt;</code> is the path to the file, as shown when you installed <code>dtx_to_wif</code>.</p>
+<div class="highlight"><pre><span></span><code>&lt;...path...&gt;\dtx_to_wif.exe path1 path2 ...
+&lt;...path...&gt;\twa_to_wif.exe path1 path2 ...
+&lt;...path...&gt;\wpo_to_wif.exe path1 path2 ...
+</code></pre></div>
+<p>where <code>&lt;...path...&gt;</code> is the path to the file, as shown when you <a href="installing/">installed</a> <code>dtx_to_wif</code>.</p>
 <p>The path arguments can files or directories.
 All files in a directory are converted, as well as all subdirectories, sub-sub-directories, etc.</p>
-<p>Replace "dtx" with "wpo" to convert WeavePoint .wpo files.</p>
 <p>Each new WIF file is written to the same directory as the original file with the same file name but a ".wif" extension.
 If a WIF file with that path already exists, the old file is left unchanged, with a warning.
 To overwrite existing files, run the command with option <code>--overwrite</code>.</p>
 <p>If you run the command with option <code>-h</code> you will see all available options.</p>
+<h2 id="differencing-files">Differencing Files</h2>
+<p>The command line program diff_weaving will compare two weaving files and print any differences in threading, picks, or thread color:</p>
+<div class="highlight"><pre><span></span><code>diff_weaving file1 file2
+</code></pre></div>
+<p>If necessary, prefix this with the path to diff_weaving, as described in #converting-files-to-wif.</p>
+<p>This utility focuses on the pattern created, rather than the details of how the pattern is specified.
+Thus, for example, a pattern specified by a liftplan may compare equal to a pattern specified by treadling.</p>
+<p>The program also ignores notes, pattern name, thread thickness, thread separation, and program-specific data (private sections). The reason it ignores thread thickness and separation is because those are difficult to compare in away that reliably produces the expected results: they are floating point values that are quantized differently by different weaving programs.</p>
 <h2 id="reading-files-into-memory">Reading Files Into Memory</h2>
-<p>dtx_to_wif can read .dtx, .wif, .wifw, and .wpo pattern files into an instance of [dtx_to_wif.PatternData][dtx_to_wif.pattern_data.PatternData].
+<p>dtx_to_wif can read <a href="#supported-formats">supported</a> weaving pattern files into memory, using function <a href="api/dtx_to_wif/#dtx_to_wif.read_pattern_file" title="dtx_to_wif.read_pattern_file">dtx_to_wif.read_pattern_file</a>.</p>
+<p>The files are read into an instance of <a href="api/dtx_to_wif/#dtx_to_wif.PatternData" title="dtx_to_wif.PatternData">dtx_to_wif.PatternData</a>.
 This is used by <a href="https://r-owen.github.io/base_loom_server">base_loom_server</a> dobby loom control software.
 It could also be used by pattern visualization software and weaving design software.</p>
-<p>To read a weaving pattern from a file, call [dtx_to_wif.read_pattern_file][dtx_to_wif.pattern_reader.read_pattern_file]. To read a weaving pattern from a string, call [dtx_to_wif.read_pattern_data][dtx_to_wif.pattern_reader.read_pattern_data].</p>
-<p>To write [dtx_to_wif.PatternData][dtx_to_wif.pattern_data.PatternData] to a WIF file, call [dtx_to_wif.write_wif][dtx_to_wif.wif_writer.write_wif].</p>
+<p>To read a weaving pattern from a file, call <a href="api/dtx_to_wif/#dtx_to_wif.read_pattern_file" title="dtx_to_wif.read_pattern_file">dtx_to_wif.read_pattern_file</a>.
+To read a weaving pattern from a string, call <a href="api/dtx_to_wif/#dtx_to_wif.read_pattern_data" title="dtx_to_wif.read_pattern_data">dtx_to_wif.read_pattern_data</a>.</p>
+<p>To write [dtx_to_wif.PatternData] to a WIF file, call <a href="api/dtx_to_wif/#dtx_to_wif.write_wif" title="dtx_to_wif.write_wif">dtx_to_wif.write_wif</a>.</p>
 <h2 id="terminal-applications">Terminal Applications</h2>
 <p>The standard terminal applications are <code>Terminal</code> for macOS, and <code>cmd.exe</code> for Windows. Other terminal applications are available, but the standard ones are fine.</p>
 <h2 id="links">Links</h2>
@@ -136,7 +176,10 @@ It could also be used by pattern visualization software and weaving design softw
 <li><a href="https://github.com/r-owen/dtx_to_wif">Source Code</a></li>
 <li><a href="https://github.com/r-owen/dtx_to_wif/issues">Issue Tracker</a></li>
 </ul>
-<h2 id="limitations">Limitations</h2>
+<h2 id="known-limitations">Known Limitations</h2>
+<p>The WeavePoint .wpo reader cannot read notes, thread thickness, nor thread separation.
+Due to this limitation I consider <code>wpo_to_wif</code> only marginally useful.
+However, the WeavePoint support is sufficient to allow <a href="https://pypi.org/project/base-loom-server/">base_loom_server</a> to work with WeavePoint files.</p>
 <p>Known differences from the WIF files that FiberWorks writes:</p>
 <ul>
 <li>The date the dtx file was created is not written to the WIF file, since WIF has no standard location for this information.
@@ -145,9 +188,6 @@ It could also be used by pattern visualization software and weaving design softw
   This is just an internal detail, as the resulting pattern is the same.
   (I have not figured out the algorithm FiberWorks uses to choose default colors and separations.)</li>
 </ul>
-<p>The WeavePoint .wpo reader cannot read notes, thread thickness, nor thread separation.
-Due to this limitation I consider <code>wpo_to_wif</code> only marginally useful.
-However, the WeavePoint support is sufficient to allow <a href="https://pypi.org/project/base-loom-server/">base_loom_server</a> to work with WeavePoint files.</p>
 <h2 id="license">License</h2>
 <p>This software is licensed under the MIT license. See <a href="https://github.com/r-owen/dtx_to_wif/blob/main/license.txt">license.txt</a> for details.</p>
               
@@ -199,5 +239,5 @@ However, the WeavePoint support is sufficient to allow <a href="https://pypi.org
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-05-22 22:34:29.380967+00:00
+Build Date UTC : 2026-06-07 00:22:27.359802+00:00
 -->
