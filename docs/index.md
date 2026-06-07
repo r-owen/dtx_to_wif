@@ -84,7 +84,7 @@ It could also be used by pattern visualization software and weaving design softw
 To read a weaving pattern from a file, call [dtx_to_wif.read_pattern_file][dtx_to_wif.read_pattern_file].
 To read a weaving pattern from a string, call [dtx_to_wif.read_pattern_data][dtx_to_wif.read_pattern_data].
 
-To write [dtx_to_wif.PatternData] to a WIF file, call [dtx_to_wif.write_wif][dtx_to_wif.write_wif].
+To write [dtx_to_wif.PatternData][dtx_to_wif.PatternData] to a WIF file, call [dtx_to_wif.write_wif][dtx_to_wif.write_wif].
 
 ## Terminal Applications
 
