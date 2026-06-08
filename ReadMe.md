@@ -1,16 +1,21 @@
-Convert FiberWorks .dtx weaving pattern files to WIF 1.1
+Convert weaving pattern files to WIF 1.1
 
-This software can also convert WeavePoint .wpo files to WIF, though it cannot read fiber thickness or spacing information, so the conversion loses information.
+This package provides:
 
-This runs as a command-line script written in Python. See Installation and Usage for instructions.
+* Command-line utilities to batch-convert weaving design files to WIF 1.1:
 
-This package can also read .wif, .dtx, and .wpo files into a standard in-memory model (`dtx_to_wif.PatternData`).
-This may be used for writing weaving design or loom driver software.
+    * `dtx_to_wif` converts Fiberworks .dtx files.
+    * `twa_to_wif` converts TempoWeave .twa files.
+    * `wpo_to_wif` converts WeavePoint .wpo files, though some information is lost.
 
-This software is licensed under the MIT license; see license.txt for details.
+* Command-line utility `diff_weaving` shows the differences between two weaving pattern files.
+
+* Python library code can read a weaving pattern file into memory. One use is for dobby loom drivers, such as [base_loom_server](https://r-owen.github.io/base_loom_server/).
 
 Links:
 
 * [Documentation](https://r-owen.github.io/dtx_to_wif/)
 * [Source Code](https://github.com/r-owen/dtx_to_wif/)
 * [PyPI](https://pypi.org/project/dtx-to-wif/)
+
+This software is licensed under the MIT license; see license.txt for details.
