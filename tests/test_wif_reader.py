@@ -34,6 +34,7 @@ class TestWifReader(unittest.TestCase):
         )
         with wif_path.open("r") as f:
             parsed_wif = read_wif(f)  # type: ignore
+        assert parsed_wif.is_rising_shed
         assert parsed_wif.liftplan == {}
         assert parsed_wif.tieup == {1: {1}, 2: {2, 4}}
         assert parsed_wif.treadling == {1: {1, 6}, 2: {5}, 3: {0, 2, 5}}
@@ -73,6 +74,7 @@ class TestWifReader(unittest.TestCase):
         wif_path = datadir / "basic_wif" / "liftplan with defaults.wif"
         with wif_path.open("r") as f:
             parsed_wif = read_wif(f)  # type: ignore
+        assert parsed_wif.is_rising_shed
         assert parsed_wif.liftplan == {1: {1, 2, 4}, 4: {0, 3, 4}}
         assert parsed_wif.notes == {}
         assert parsed_wif.private_sections == {}
