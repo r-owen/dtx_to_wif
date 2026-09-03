@@ -29,7 +29,7 @@ class TestDtxReader(unittest.TestCase):
                 with wif_path.open("r") as f:
                     parsed_wif = read_wif(f)
                 assert parsed_dtx == parsed_wif
-        assert files_found == 5
+        assert files_found == 7
 
 
 if __name__ == "__main__":

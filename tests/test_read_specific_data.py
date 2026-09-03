@@ -8,7 +8,7 @@ basic_dtx_dir = datadir / "basic_dtx"
 bad_wif_dir = datadir / "bad_dtx"
 
 SpecificData = {
-    "two color liftplan": {
+    "two color liftplan sinking shed": {
         "name": "two color liftplan.dtx",
         "threading": {1: {2}, 2: {3}, 3: {4}, 4: {1}},
         "tieup": {},
@@ -52,7 +52,7 @@ SpecificData = {
         "weft_spacing": {},
         "weft_thickness": {},
         "color_range": (0, 255),
-        "is_rising_shed": True,
+        "is_rising_shed": False,
         "source_program": "Fiberworks PCW",
         "source_version": "4.2",
         "num_shafts": 4,
