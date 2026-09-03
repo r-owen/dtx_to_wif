@@ -1,5 +1,10 @@
 # Version History
 
+## 4.7.1 2026-09-03
+
+* Bug fix for reading FiberWorks dtx files: read the sinking shed indicator.
+  Thanks to Barry Duncan of TempoWeave for the report.
+
 ## 4.7.0 2026-06-06
 
 * Warning: this version requires Python 3.11 (it formerly required 3.10).
