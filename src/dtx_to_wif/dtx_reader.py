@@ -41,75 +41,46 @@ class SectionData:
             self.data.append(line)
 
 
-def read_dtx(f: TextIO, filename: str = "?") -> PatternData:
-    """Parse a dtx weaving file into PatternData
-
-    Leading and trailing whitespace are stripped and blank lines are ignored.
+def get_data_item(
+    data: dict[str, SectionData], section_name: str, index: int, default: str
+) -> str:
+    """Get one indexed element of SectionInfo.data.
 
     Args:
-        f: The dtx file.
-        filename: The file name. Usually ignored, but used as the pattern name
-            if the dtx file does not have a "description" section.
+        data: Parsed dtx data; a dict of SectionInfo from parse_dtx_file.
+        section_name: The name of the dtx section (lowercase).
+        index: The index of the data item.
+        default: The value to return if the section does not exist,
+            or the index is out of range.
     """
-    # a dict of section name (each matching a field in PatternData):
-    # data in PatternData format.
-    sections = dict()
-    section_name = ""
-    for line in f:
-        line = line.strip()
-        if not line:
-            continue
+    section_info = data.get(section_name)
+    if section_info is None:
+        return default
+    if len(section_info.data) <= index:
+        return default
+    return section_info.data[index]
 
-        if line.startswith("@@"):
-            section_name = line[2:].strip().lower()
-            section_name = DtxToWifSectionNames.get(section_name, section_name)
-            section_name = section_name.replace(" ", "_")
-            sections[section_name] = SectionData()
-        else:
-            sections[section_name].add_line(line)
 
-    argdict = {}
-    for section_name, processor in section_dispatcher.items():
-        section_info = sections.get(section_name)
-        if section_info is not None:
-            argdict[section_name] = processor(section_info)
-        else:
-            argdict[section_name] = {}
+def get_metadata_item(
+    sections: dict[str, SectionData], section_name: str, name: str, default: str
+) -> str:
+    """Get one named element of SectionData.metadata as a str
 
-    for ww_name in ("warp", "weft"):
-        ww_colors: dict[int, int] | None = argdict.get(f"{ww_name}_colors")  # type: ignore
-        if ww_colors:
-            default_color: int | None = ww_colors[1]
-        elif "color_table" in argdict:
-            default_color = dict(warp=1, weft=2)[ww_name]
-        else:
-            default_color = None
-
-        num_threads_name = dict(warp="ends", weft="picks")[ww_name]
-        argdict[ww_name] = WarpWeftData(
-            threads=int(get_metadata_item(sections, "info", num_threads_name, "0")),
-            color=default_color,
-            spacing=DefaultFiberSpacing,
-            thickness=None,
-            units="centimeters",
-        )
-
-    source_version = get_data_item(sections, "imprint", 0, "ignored ?").split()[1]
-    if "." in source_version:
-        # Drop everything after major.minor, if present,
-        # to match what FiberWorks writes to WIF
-        source_version = ".".join(source_version.split(".")[0:2])
-
-    return PatternData(
-        name=get_data_item(sections, "description", 0, filename),
-        color_range=(0, 255),
-        is_rising_shed=True,
-        source_program="Fiberworks PCW",
-        source_version=source_version,
-        num_shafts=int(get_metadata_item(sections, "info", "shafts", "0")),
-        num_treadles=int(get_metadata_item(sections, "info", "treadles", "0")),
-        **argdict,  # type: ignore
-    )
+    Args:
+        sections: Parsed dtx sections; a dict of section name: SectionInfo
+            e.g. as returned by read_dtx_sections.
+        section_name: The name of the dtx section (lowercase).
+        name: The name of the metadata item.
+        default: The value to return if the section does not exists,
+            the metadata does not exist, or the metadata has value None.
+    """
+    section_info = sections.get(section_name)
+    if section_info is None:
+        return default
+    result = section_info.metadata.get(name)
+    if result is None:
+        result = default
+    return result
 
 
 def process_color_table(section_info) -> dict[int, tuple[int, int, int]]:
@@ -197,19 +168,20 @@ def process_tieup(tieup_info) -> dict[int, set[int]]:
     """Process the tieup section.
 
     Input format: rows are shafts, with shaft 1 as the last line.
-    Each row is string of 0 or 1 chars, of length # treadles
+    Each row is string of 0 or 1 chars, of length # treadles.
 
-    Return a list of treadles, where each treadle is tuple of 1-based shafts.
+    Return the tieup as dict of 1-based treadle number:
+    a list of 1-based shaft numbers.
     """
-    result = {}
+    tieup_dict = {}
     num_treadles = len(tieup_info.data[0])
     for treadle in range(num_treadles):
-        result[treadle + 1] = {
+        tieup_dict[treadle + 1] = {
             i + 1
             for i, boolstr in enumerate(reversed(tieup_info.data))
             if boolstr[treadle] == "1"
         }
-    return result
+    return tieup_dict
 
 
 def process_treadling(treadling_info: SectionData) -> dict[int, set[int]]:
@@ -255,45 +227,100 @@ def process_notes(section_info: SectionData) -> dict[int, str]:
     return {i + 1: line for i, line in enumerate(section_info.data)}
 
 
-def get_data_item(
-    data: dict[str, SectionData], section_name: str, index: int, default: str
-) -> str:
-    """Get one indexed element of SectionInfo.data.
+def read_dtx(f: TextIO, filename: str = "?") -> PatternData:
+    """Parse a dtx weaving file into PatternData
+
+    Leading and trailing whitespace are stripped and blank lines are ignored.
 
     Args:
-        data: Parsed dtx data; a dict of SectionInfo from parse_dtx_file.
-        section_name: The name of the dtx section (lowercase).
-        index: The index of the data item.
-        default: The value to return if the section does not exist,
-            or the index is out of range.
+        f: The dtx file.
+        filename: The file name. Usually ignored, but used as the pattern name
+            if the dtx file does not have a "description" section.
     """
-    section_info = data.get(section_name)
-    if section_info is None:
-        return default
-    if len(section_info.data) <= index:
-        return default
-    return section_info.data[index]
+    # a dict of section name (each matching a field in PatternData):
+    # data in PatternData format.
+    sections = read_dtx_sections(f)
+
+    argdict = {}
+    for section_name, processor in section_dispatcher.items():
+        section_info = sections.get(section_name)
+        if section_info is not None:
+            argdict[section_name] = processor(section_info)
+        else:
+            argdict[section_name] = {}
+
+    for ww_name in ("warp", "weft"):
+        ww_colors: dict[int, int] | None = argdict.get(f"{ww_name}_colors")  # type: ignore
+        if ww_colors:
+            default_color: int | None = ww_colors[1]
+        elif "color_table" in argdict:
+            default_color = dict(warp=1, weft=2)[ww_name]
+        else:
+            default_color = None
+
+        num_threads_name = dict(warp="ends", weft="picks")[ww_name]
+        argdict[ww_name] = WarpWeftData(
+            threads=int(get_metadata_item(sections, "info", num_threads_name, "0")),
+            color=default_color,
+            spacing=DefaultFiberSpacing,
+            thickness=None,
+            units="centimeters",
+        )
+
+    source_version = get_data_item(sections, "imprint", 0, "ignored ?").split()[1]
+    if "." in source_version:
+        # Drop everything after major.minor, if present,
+        # to match what FiberWorks writes to WIF
+        source_version = ".".join(source_version.split(".")[0:2])
+
+    is_rising_shed = True
+    for section_name in ("tieup", "liftplan"):
+        section_info = sections.get(section_name)
+        if section_info is not None:
+            is_rising_shed = "%%sinking" not in section_info.metadata
+            break
+    else:
+        raise RuntimeError("Pattern must contain a tieup or liftplan section")
+
+    return PatternData(
+        name=get_data_item(sections, "description", 0, filename),
+        color_range=(0, 255),
+        is_rising_shed=is_rising_shed,
+        source_program="Fiberworks PCW",
+        source_version=source_version,
+        num_shafts=int(get_metadata_item(sections, "info", "shafts", "0")),
+        num_treadles=int(get_metadata_item(sections, "info", "treadles", "0")),
+        **argdict,  # type: ignore
+    )
 
 
-def get_metadata_item(
-    data: dict[str, SectionData], section_name: str, name: str, default: str
-) -> str:
-    """Get one named element of SectionData.metadata as a str
+def read_dtx_sections(f: TextIO) -> dict[str, SectionData]:
+    """Parse a dtx weaving file a dict of section name: section data
+
+    Sections names are cast to lowercase.
+    Leading and trailing whitespace are stripped and blank lines are ignored.
 
     Args:
-        data: Parsed dtx data; a dict of SectionInfo from parse_dtx_file.
-        section_name: The name of the dtx section (lowercase).
-        name: The name of the metadata item.
-        default: The value to return if the section does not exists,
-            the metadata does not exist, or the metadata has value None.
+        f: The dtx file.
+        filename: The file name. Usually ignored, but used as the pattern name
+            if the dtx file does not have a "description" section.
     """
-    section_info = data.get(section_name)
-    if section_info is None:
-        return default
-    result = section_info.metadata.get(name)
-    if result is None:
-        result = default
-    return result
+    sections: dict[str, SectionData] = dict()
+    section_name = ""
+    for line in f:
+        line = line.strip()
+        if not line:
+            continue
+
+        if line.startswith("@@"):
+            section_name = line[2:].strip().lower()
+            section_name = DtxToWifSectionNames.get(section_name, section_name)
+            section_name = section_name.replace(" ", "_")
+            sections[section_name] = SectionData()
+        else:
+            sections[section_name].add_line(line)
+
+    return sections
 
 
 section_dispatcher = dict(
