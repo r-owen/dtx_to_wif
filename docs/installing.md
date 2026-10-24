@@ -1,6 +1,6 @@
 # Installing
 
-1. Check if you have Python 3.10 or newer installed.
+1. Check if you have Python 3.11 or newer installed.
 
     Run your [terminal application](index.md/#terminal-applications).
 
@@ -9,10 +9,10 @@
         python --version
     
     If Python is installed, this will print a version number.
-    If that version number is at least 3.10, you may skip the next step
+    If that version number is at least 3.11, you may skip the next step
     (though you might wish to upgrade your Python in any case).
 
-2. If necessary, install [Python](https://www.python.org/downloads/) 3.10 or later, preferably the current release.
+2. If necessary, install [Python](https://www.python.org/downloads/) 3.11 or later, preferably the current release.
 
     The link has installers for common operating systems.
     However, on Windows you may want to try Microsoft's app store.

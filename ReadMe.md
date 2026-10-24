@@ -8,9 +8,10 @@ This package provides:
     * `twa_to_wif` converts TempoWeave .twa files.
     * `wpo_to_wif` converts WeavePoint .wpo files, though some information is lost.
 
-* Command-line utility `diff_weaving` shows the differences between two weaving pattern files.
+* Command-line utility `diff_weaving` to show the differences between two weaving pattern files.
 
-* Python library code can read a weaving pattern file into memory. One use is for dobby loom drivers, such as [base_loom_server](https://r-owen.github.io/base_loom_server/).
+* Python functions `read_pattern_file` and `read_pattern_data` to read a weaving pattern into memory.
+  One use is for dobby loom drivers, such as [base_loom_server](https://r-owen.github.io/base_loom_server/).
 
 Links:
 

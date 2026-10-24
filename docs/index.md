@@ -75,14 +75,14 @@ The program also ignores notes, pattern name, thread thickness, thread separatio
 
 ## Reading Files Into Memory
 
-dtx_to_wif can read [supported](#supported-formats) weaving pattern files into memory, using function [dtx_to_wif.read_pattern_file][dtx_to_wif.read_pattern_file].
+dtx_to_wif can read [supported](#supported-formats) weaving pattern files into memory using functions:
 
-The files are read into an instance of [dtx_to_wif.PatternData][dtx_to_wif.PatternData].
+* [dtx_to_wif.read_pattern_file][dtx_to_wif.read_pattern_file] to read a file.
+* [dtx_to_wif.read_pattern_data][dtx_to_wif.read_pattern_data] to read the data as a string.
+
+The data is read into an instance of [dtx_to_wif.PatternData][dtx_to_wif.PatternData].
 This is used by [base_loom_server](https://r-owen.github.io/base_loom_server) dobby loom control software.
 It could also be used by pattern visualization software and weaving design software.
-
-To read a weaving pattern from a file, call [dtx_to_wif.read_pattern_file][dtx_to_wif.read_pattern_file].
-To read a weaving pattern from a string, call [dtx_to_wif.read_pattern_data][dtx_to_wif.read_pattern_data].
 
 To write [dtx_to_wif.PatternData][dtx_to_wif.PatternData] to a WIF file, call [dtx_to_wif.write_wif][dtx_to_wif.write_wif].
 

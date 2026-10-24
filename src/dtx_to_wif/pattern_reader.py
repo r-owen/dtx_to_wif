@@ -38,8 +38,8 @@ SupportedFileSuffixes = set(Readers.keys())
 def read_pattern_data(data: str, suffix: str, name: str):
     """Read a weaving pattern from a data string.
 
-    For WeavePoint .wpo files, which are binary, encode the data as base64,
-    e.g. using `base64.b64decode(data_bytes)`.
+    Binary formats (e.g. TempoWeave .twa and WeavePoint .wpo)
+    must be encoded as base64, e.g. using `base64.b64decode(data_bytes)`.
 
     Args:
         data:  Pattern data. WeavePoint data must be encoded as base64.
