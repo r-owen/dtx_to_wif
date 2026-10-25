@@ -10,15 +10,16 @@ build-backend = "setuptools.build_meta"
 name = "dtx_to_wif"
 dynamic = ["version"]
 description = "Convert handweaving files from dtx format (FiberWorks) to wif"
-readme = "ReadMe.md"
 authors = [
   { name="Russell Owen", email="r3owen@gmail.com" },
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+license = "MIT"
+license-files = ["LICENSE.txt"]
+readme = "ReadMe.md"
 requires-python = ">=3.11"
 
 [project.scripts]
